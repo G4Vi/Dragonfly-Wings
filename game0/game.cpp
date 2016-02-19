@@ -7,6 +7,7 @@
 #include "LogManager.h"
 #include "ResourceManager.h"
 #include "Saucer.h"
+#include "Hero.h"
 
 void loadResources(void);
 void populateWorld(void);
@@ -14,12 +15,15 @@ void populateWorld(void);
 void populateWorld(void)
 {
     new Saucer;
+    new Hero;
 }
 
 void loadResources()
 {
     df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
     resource_manager.loadSprite("sprites/saucer-spr.txt", "saucer");
+    resource_manager.loadSprite("sprites/ship-spr.txt", "ship");
+
 }
 int main(int argc, char *argv[]) {
   df::LogManager &log_manager = df::LogManager::getInstance();
