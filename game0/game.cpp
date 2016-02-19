@@ -23,6 +23,7 @@ void loadResources()
     df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
     resource_manager.loadSprite("sprites/saucer-spr.txt", "saucer");
     resource_manager.loadSprite("sprites/ship-spr.txt", "ship");
+    resource_manager.loadSprite("sprites/bullet-spr.txt", "bullet");
 
 }
 int main(int argc, char *argv[]) {
