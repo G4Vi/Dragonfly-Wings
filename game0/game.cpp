@@ -24,7 +24,7 @@ void loadResources()
     resource_manager.loadSprite("sprites/saucer-spr.txt", "saucer");
     resource_manager.loadSprite("sprites/ship-spr.txt", "ship");
     resource_manager.loadSprite("sprites/bullet-spr.txt", "bullet");
-
+    resource_manager.loadSprite("sprites/explosion-spr.txt", "explosion");
 }
 int main(int argc, char *argv[]) {
   df::LogManager &log_manager = df::LogManager::getInstance();

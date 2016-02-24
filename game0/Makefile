@@ -30,7 +30,7 @@ INCDIR= -I../dragonfly/include/ # path to dragonfly includes
 
 GAMESRC= \
 
-GAME= game.cpp Saucer.cpp Hero.cpp Bullet.cpp Reticle.cpp
+GAME= game.cpp Saucer.cpp Hero.cpp Bullet.cpp Reticle.cpp Explosion.cpp
 EXECUTABLE= game
 OBJECTS= $(GAMESRC:.cpp=.o)
 
