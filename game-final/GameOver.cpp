@@ -10,7 +10,7 @@
 
 // Game includes.
 #include "GameOver.h"
-#include "GameStart.h"
+#include "HostStart.h"
 
 GameOver::GameOver() {
 
@@ -40,20 +40,20 @@ GameOver::GameOver() {
   p_sound->play();
 }
 
-// When done, game over so reset things for GameStart.
+// When done, game over so reset things for HostStart.
 GameOver::~GameOver() {
   df::WorldManager &world_manager = df::WorldManager::getInstance();
 
-  // Remove Saucers and ViewObjects, re-activate GameStart.
+  // Remove Saucers and ViewObjects, re-activate HostStart.
   df::ObjectList object_list = world_manager.getAllObjects(true);
   df::ObjectListIterator i(&object_list);
   for (i.first(); !i.isDone(); i.next()) {
     df::Object *p_o = i.currentObject();
     if (p_o -> getType() == "Saucer" || p_o -> getType() == "ViewObject")
       world_manager.markForDelete(p_o);
-    if (p_o -> getType() == "GameStart") {
+    if (p_o -> getType() == "HostStart") {
       p_o -> setActive(true);
-      dynamic_cast <GameStart *> (p_o) -> playMusic();	// Resume start music.
+      dynamic_cast <HostStart *> (p_o) -> playMusic();	// Resume start music.
     }
   }
 }

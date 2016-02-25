@@ -33,12 +33,18 @@ GAMESRC= \
          EventNuke.cpp \
          Explosion.cpp \
          GameOver.cpp \
-         GameStart.cpp \
-         Hero.cpp \
+         HostStart.cpp \
+         ClientStart.cpp \
+         Host.cpp \
+		 Client.cpp \
          Points.cpp \
          Reticle.cpp \
          Saucer.cpp \
          Star.cpp \
+		 Settings.cpp \
+		 EventNetwork.cpp \
+		 Sentry.cpp \
+		 NetworkManager.cpp \
 
 GAME= game.cpp
 EXECUTABLE= game
