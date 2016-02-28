@@ -1,5 +1,22 @@
-17:10:06    0 ****************************************************
-17:10:06    0 ** Dragonfly version 4.1 **
-17:10:48 1184 GameManager::run(): Can't keep up! frame_time 33 ms, split 100 ms
-17:10:49 1235 ** Game stopped **
-17:10:49 1235 ****************************************************
+17:12:30    0 ****************************************************
+17:12:30    0 ** Dragonfly version 4.1 **
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Object)
+17:12:49  446 SceneGraph::updateAltitude(): remove from old altitude (2) failed!
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+17:12:49  446 ** Game stopped **
+17:12:49  446 ****************************************************
