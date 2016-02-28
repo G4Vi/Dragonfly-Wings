@@ -26,11 +26,12 @@ bool Sync::determineObChange(df::Object* anobject, char* messageStatus)
 
 int Sync::sendObject(df::Object* tempOb, char* status)
 {
-    std::string thedata;
+    std::string thedata, otherstring;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     //thedata  = status + tempOb->serialize();
-    thedata = status;
-    thedata += tempOb->serialize();
+    otherstring = status;
+    thedata = tempOb->serialize();
+    thedata += otherstring;
     network_manager.send2((void *)thedata.c_str(), thedata.length()+1);  
     return 0;
 }                                                                                                           
