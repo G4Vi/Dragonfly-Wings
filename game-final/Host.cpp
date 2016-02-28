@@ -228,9 +228,9 @@ void Host::step() {
 
     if(network_manager.isConnected())
     {
-        char* messageStatus;
+        std::string messageStatus;
         //Local ship
-        if(syncHalp->determineObChange(this, messageStatus))
+        if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
         }

@@ -138,7 +138,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
     {       
         cpacket[4095] = '\0';
         std::cout<< cpacket << std::endl;
-        /*if(memcmp(cpacket, "NEW", 3))
+        if(memcmp(cpacket, "NEW", 3))
         {
             type = df::match(cpacket, "type:");
             std::cout<< "type is " << type << std::endl;
@@ -149,7 +149,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
                 //new Clientship
             }
         }
-        else*/
+        else
         {
            data = cpacket;
         }
@@ -250,9 +250,9 @@ void Client::step() {
 
     if(network_manager.isConnected())
     {
-        char* messageStatus;
+        std::string messageStatus;
         //Local ship
-        if(syncHalp->determineObChange(this, messageStatus))
+        if(syncHalp->determineObChange(this, &messageStatus))
         {            
             syncHalp->sendObject(this, messageStatus);
         }

@@ -6,31 +6,31 @@
 
                                
 #include <iostream>
-bool Sync::determineObChange(df::Object* anobject, char* messageStatus)
+bool Sync::determineObChange(df::Object* anobject, std::string* messageStatus)
 {
     if(anobject->getType() ==  "Hero")
     {
         if(anobject->isModified(df::ID))
         {
-            messageStatus = "NEW";
+            *messageStatus = "NEW";
             return true;
         }
         else if(anobject->isModified(df::POS))
         {
-            messageStatus = "UPDATE";
+            *messageStatus = "UPDATE";
             return true;            
         }
     }
     return false;
 }
 
-int Sync::sendObject(df::Object* tempOb, char* status)
+int Sync::sendObject(df::Object* tempOb, std::string status)
 {
-    std::string thedata, otherstring;
+    std::string thedata;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     //thedata  = status + tempOb->serialize();
     //otherstring = status;
-    thedata = "NEW";
+    thedata = status;
     thedata += tempOb->serialize();
 
     std::cout << "thedata is " << thedata << std::endl;

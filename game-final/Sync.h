@@ -15,8 +15,8 @@ class Sync{
 
  private:
  public:
- bool determineObChange(df::Object* anobject, char* messageStatus);
- int  sendObject(df::Object* tempOb, char* status);
+ bool determineObChange(df::Object* anobject, std::string* messageStatus);
+ int  sendObject(df::Object* tempOb, std::string status);
  int  process(df::Object* tempOb, std::string data);
 };
 
