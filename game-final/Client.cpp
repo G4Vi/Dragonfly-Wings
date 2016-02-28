@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 #include "WorldManager.h"
 
+
 // Game includes.
 #include "Bullet.h"
 #include "EventNuke.h"
@@ -18,6 +19,7 @@
 #include "GameOver.h"
 #include "Client.h"
 #include "Saucer.h"
+#include "RemoteShip.h"
 
 // Networking
 #include "Sentry.h"
@@ -146,8 +148,9 @@ void Client::network(const df::EventNetwork *p_network_event) {
             if(type == "Hero")
             {
                 std::cout<< "we have a hero";
-                //data = (cpacket+3);
-                //new Clientship
+                data = (cpacket+3);
+                this->otherPlayer = new RemoteShip;
+                syncHalp->process(otherPlayer, data);
             }
         }
         else

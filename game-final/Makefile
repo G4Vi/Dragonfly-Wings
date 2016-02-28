@@ -37,6 +37,7 @@ GAMESRC= \
          Sync.cpp \
          Host.cpp \
 		 Client.cpp \
+		 RemoteShip.cpp \
          Points.cpp \
          Reticle.cpp \
          Saucer.cpp \
