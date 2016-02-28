@@ -28,7 +28,8 @@ class Host : public df::Object {
   void fire(df::Position target);
   void step();
   void nuke();
-
+  bool determineObChange(Object* anobject, char* messageStatus);
+  int sendObject(Object*, char* status);
  public:
   Host(Settings* info);
   ~Host();

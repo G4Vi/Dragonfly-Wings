@@ -137,4 +137,82 @@ make: *** No targets specified and no makefile found.  Stop.
 g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
 g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
 [01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m cd ..
-[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m git commit -a -m "Serialize network test"
+[master 41eae58] Serialize network test
+ 5 files changed, 74 insertions(+), 25 deletions(-)
+ rewrite game-final/dragonfly.log (100%)
+ rewrite game-final/game (73%)
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m git push origin master
+Username for 'https://github.com': g4vin
+Password for 'https://g4vin@github.com': 
+Counting objects: 15, done.
+Delta compression using up to 2 threads.
+Compressing objects:  14% (1/7)   Compressing objects:  28% (2/7)   Compressing objects:  42% (3/7)   Compressing objects:  57% (4/7)   Compressing objects:  71% (5/7)   Compressing objects:  85% (6/7)   Compressing objects: 100% (7/7)   Compressing objects: 100% (7/7), done.
+Writing objects:  12% (1/8)   Writing objects:  25% (2/8)   Writing objects:  37% (3/8)   Writing objects:  50% (4/8)   Writing objects:  62% (5/8)   Writing objects:  75% (6/8)   Writing objects:  87% (7/8)   Writing objects: 100% (8/8)   Writing objects: 100% (8/8), 50.94 KiB | 0 bytes/s, done.
+Total 8 (delta 5), reused 0 (delta 0)
+To https://github.com/g4vin/Dragonfly-Wings.git
+   48ab470..41eae58  master -> master
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m git push origin mastercommit -a -m "Serialize network test"cd ..[Kgit commit -a -m "Serialize network test"[19Ppush origin master[Kcd game-final/
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+Host.cpp: In member function ‘void Host::step()’:
+Host.cpp:227:39: error: no matching function for call to ‘Host::isModified(df::ViewObjectAttribute)’
+       if(this->isModified(df::LOCATION))
+                                       ^
+Host.cpp:227:39: note: candidates are:
+In file included from ../dragonfly/include/Manager.h:13:0,
+                 from ../dragonfly/include/GameManager.h:8,
+                 from Host.cpp:9:
+../dragonfly/include/Object.h:234:16: note: virtual bool df::Object::isModified(df::ObjectAttribute) const
+   virtual bool isModified(enum ObjectAttribute attribute) const;
+                ^
+../dragonfly/include/Object.h:234:16: note:   no known conversion for argument 1 from ‘df::ViewObjectAttribute’ to ‘df::ObjectAttribute’
+../dragonfly/include/Object.h:237:16: note: virtual bool df::Object::isModified() const
+   virtual bool isModified() const;
+                ^
+../dragonfly/include/Object.h:237:16: note:   candidate expects 0 arguments, 1 provided
+make: *** [Host.o] Error 1
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m makecd game-final/make[K[Kmake
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+Host.cpp: In member function ‘void Host::step()’:
+Host.cpp:227:33: error: ‘df::Position’ is not a class member
+       if(this->isModified(this->df::Position))
+                                 ^
+make: *** [Host.o] Error 1
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+Host.cpp: In member function ‘void Host::step()’:
+Host.cpp:227:39: error: expected primary-expression before ‘)’ token
+       if(this->isModified(df::Position))
+                                       ^
+make: *** [Host.o] Error 1
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m makecd game-final/git push origin mastercommit -a -m "Serialize network test"[19Ppush origin master[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kmake
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientS
