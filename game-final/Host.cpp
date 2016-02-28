@@ -135,7 +135,7 @@ void Host::network(const df::EventNetwork *p_network_event) {
     memset(packet, 0, 4096);
     if(network_manager.receive(packet, 4096, false)> 0)
     {
-        std::cout << "recv\n";
+        packet[4095] = '\0';
         std::cout<< packet << std::endl;
     }
 }
@@ -231,8 +231,7 @@ void Host::step() {
         char* messageStatus;
         //Local ship
         if(syncHalp->determineObChange(this, messageStatus))
-        {            
-            //std::cout << this->serialize() << std::endl;
+        {
             syncHalp->sendObject(this, messageStatus);
         }
     }

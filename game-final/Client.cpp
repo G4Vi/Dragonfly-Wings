@@ -134,16 +134,15 @@ void Client::network(const df::EventNetwork *p_network_event) {
     memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);
     if(i > 0)
-    {
-        std::cout < "recv\n";
+    {       
         cpacket[4095] = '\0';
         std::cout<< cpacket << std::endl;
         std::string data = cpacket;
-        //syncHalp->process(this, data);
+        syncHalp->process(this, data);
     }
     else
     {
-        std::cout << "i is " << i << std::endl;
+
     }
 }
 
@@ -238,8 +237,7 @@ void Client::step() {
         char* messageStatus;
         //Local ship
         if(syncHalp->determineObChange(this, messageStatus))
-        {
-            //std::cout << "ship has moved" << std::endl;
+        {            
             syncHalp->sendObject(this, messageStatus);
         }
     }
