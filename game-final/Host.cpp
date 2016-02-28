@@ -232,7 +232,7 @@ void Host::step() {
         //Local ship
         if(syncHalp->determineObChange(this, messageStatus))
         {            
-            std::cout << this->serialize() << std::endl;
+            //std::cout << this->serialize() << std::endl;
             syncHalp->sendObject(this, messageStatus);
         }
     }
