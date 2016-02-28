@@ -5,7 +5,7 @@
 #include "NetworkManager.h"
 
                                
-                                   
+#include <iostream>
 bool Sync::determineObChange(df::Object* anobject, char* messageStatus)
 {
     if(anobject->getType() ==  "Hero")
@@ -32,6 +32,7 @@ int Sync::sendObject(df::Object* tempOb, char* status)
     otherstring = status;
     thedata = tempOb->serialize();
     thedata += otherstring;
+    std::cout << "thedata is " << thedata << std::endl;
     network_manager.send2((void *)thedata.c_str(), thedata.length()+1);  
     return 0;
 }                                                                                                           
