@@ -33,6 +33,7 @@ void Sentry::doStep()
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     if(network_manager.isData())
     {
+        std::cout << network_manager.isData() << std::endl;
         network_manager.onEvent(&EN);
     }
 }                                                                                                            

@@ -132,7 +132,8 @@ int Client::eventHandler(const df::Event *p_e) {
 void Client::network(const df::EventNetwork *p_network_event) {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     memset(cpacket, 0, 4096);
-    if(network_manager.receive(cpacket, 4096, false))
+    int i = network_manager.receive(cpacket, 4096, false);
+    if(i)
     {
         std::cout < "recv\n";
         cpacket[4095] = '\0';
@@ -140,6 +141,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         std::string data = cpacket;
         syncHalp->process(this, data);
     }
+    std::cout << "i is " << i << std::endl;
 }
 
 // Take appropriate action according to mouse action.
