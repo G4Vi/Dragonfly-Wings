@@ -10,15 +10,15 @@ bool Sync::determineObChange(df::Object* anobject, char* messageStatus)
 {
     if(anobject->getType() ==  "Hero")
     {
-        if(anobject->isModified(df::POS))                                          
-        {
-            messageStatus = "UPDATE";
-            return true;            
-        }
-        else
+        if(anobject->isModified(df::ID))
         {
             messageStatus = "NEW";
             return true;
+        }
+        else if(anobject->isModified(df::POS))
+        {
+            messageStatus = "UPDATE";
+            return true;            
         }
     }
     return false;
