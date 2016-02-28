@@ -33,7 +33,7 @@ int Sync::sendObject(df::Object* tempOb, std::string status)
     thedata = status;
     thedata += tempOb->serialize();
 
-    std::cout << "thedata is " << thedata << std::endl;
+    //std::cout << "thedata is " << thedata << std::endl;
     network_manager.send2((void *)thedata.c_str(), thedata.length()+1);  
     return 0;
 }                                                                                                           

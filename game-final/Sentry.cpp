@@ -32,10 +32,7 @@ void Sentry::doStep()
     EventNetwork EN;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     if(network_manager.isData()> 0)
-    {
-        std::cout << "isData is " << network_manager.isData() << std::endl;
-        std::cout << "connected? " << network_manager.isConnected() << std::endl;
-        std::cout.flush();
+    {        
         network_manager.onEvent(&EN);
     }
 }                                                                                                            

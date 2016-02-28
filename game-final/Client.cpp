@@ -132,6 +132,7 @@ int Client::eventHandler(const df::Event *p_e) {
 void Client::network(const df::EventNetwork *p_network_event) {
     std::string type, data;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+    std::cout<< "Client is here" << std::endl;
     memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);
     if(i > 0)
