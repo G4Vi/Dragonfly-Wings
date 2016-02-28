@@ -27,7 +27,7 @@ bool Sync::determineObChange(df::Object* anobject, char* messageStatus)
 int Sync::sendObject(df::Object* tempOb, char* status)
 {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-    std::string thedata =  tempOb->serialize();                                        
+    std::string thedata =  status + tempOb->serialize();
     network_manager.send2((void *)thedata.c_str(), thedata.length()+1);  
     return 0;
 }                                                                                                           

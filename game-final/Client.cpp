@@ -130,6 +130,7 @@ int Client::eventHandler(const df::Event *p_e) {
 
 // Network
 void Client::network(const df::EventNetwork *p_network_event) {
+    std::string type, data;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);
@@ -137,7 +138,22 @@ void Client::network(const df::EventNetwork *p_network_event) {
     {       
         cpacket[4095] = '\0';
         std::cout<< cpacket << std::endl;
-        std::string data = cpacket;
+        if(memcmp(cpacket, "NEW", 3))
+        {
+            type = df::match(cpacket, "type:");
+            std::cout<< "type is " << type << std::endl;
+            if(type == "Hero")
+            {
+                std::cout<< "we have a hero";
+                data = (cpacket+3);
+                //new Clientship
+            }
+        }
+        else
+        {
+           data = cpacket;
+        }
+        std::cout<< data << std::endl;
         syncHalp->process(this, data);
     }
     else
