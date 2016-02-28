@@ -107,8 +107,8 @@ int NetworkManager::receive(void* buffer, int nbytes, bool peak)
 
 int NetworkManager::isData() 
 {
-    char tempbuf[3];
-    return  receive(tempbuf, 3, true);
+    char tempbuf[60];
+    return  receive(tempbuf, 60, true);
 }
 
 int NetworkManager::getClientSock(void** results)
