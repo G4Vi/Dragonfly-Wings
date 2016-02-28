@@ -1,6 +1,0 @@
-11:55:19    0 ****************************************************
-11:55:19    0 ** Dragonfly version 4.1 **
-11:55:21   63 GameManager::run(): Can't keep up! frame_time 33 ms, split 66 ms
-11:55:21   64 GameManager::run(): Can't keep up! frame_time 33 ms, split 66 ms
-11:55:21   65 GameManager::run(): Can't keep up! frame_time 33 ms, split 74 ms
-11:55:21   66 GameManager::run(): Can't keep up! frame_time 33 ms, split 41 ms

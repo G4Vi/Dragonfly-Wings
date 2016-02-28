@@ -31,12 +31,13 @@ Host::Host(Settings* info) {
     df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
     df::LogManager &log_manager = df::LogManager::getInstance();
     df::Sprite *p_temp_sprite;
-    p_temp_sprite = resource_manager.getSprite("ship");
+    p_temp_sprite = resource_manager.getSprite("ship");    
     if (!p_temp_sprite) {
         log_manager.writeLog("Host::Host(): Warning! Sprite '%s' not found", 
                 "ship");
-    } else {
-        setSprite(p_temp_sprite);
+        } else {
+        p_temp_sprite->setColor(df::RED);
+        setSprite(p_temp_sprite);        
         setSpriteSlowdown(3);  // 1/3 speed animation.
         setTransparency();	   // Transparent sprite.
     }
@@ -55,7 +56,7 @@ Host::Host(Settings* info) {
 
     // Set starting location.
     df::WorldManager &world_manager = df::WorldManager::getInstance();
-    df::Position pos(7, world_manager.getBoundary().getVertical()/3);
+    df::Position pos(7, (world_manager.getBoundary().getVertical()/2) - 7);
     setPosition(pos);
 
     // Create reticle for firing bullets.
@@ -230,7 +231,8 @@ void Host::step() {
         //Local ship
         if(syncHalp->determineObChange(this, messageStatus))
         {
-            std::cout << "ship has moved" << std::endl;
+            std::cout << "ship change" << std::endl;
+            std::cout << this->serialize() << std::endl;
             syncHalp->sendObject(this, messageStatus);
         }
     }

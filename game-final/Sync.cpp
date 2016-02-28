@@ -14,7 +14,12 @@ bool Sync::determineObChange(df::Object* anobject, char* messageStatus)
         {
             messageStatus = "UPDATE";
             return true;            
-        }                                                                      
+        }
+        else
+        {
+            messageStatus = "NEW";
+            return true;
+        }
     }
     return false;
 }
@@ -28,3 +33,7 @@ int Sync::sendObject(df::Object* tempOb, char* status)
 }                                                                                                           
                                                                                                              
                                                                                                                                          
+int Sync::process(df::Object* tempOb, std::string data)
+{
+    return tempOb->deserialize(data);
+}

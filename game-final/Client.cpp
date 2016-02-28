@@ -55,7 +55,7 @@ Client::Client(Settings* info) {
 
     // Set starting location.
     df::WorldManager &world_manager = df::WorldManager::getInstance();
-    df::Position pos(7, world_manager.getBoundary().getVertical()/3);
+    df::Position pos(7, (world_manager.getBoundary().getVertical()/2)+7);
     setPosition(pos);
 
     // Create reticle for firing bullets.
@@ -134,7 +134,10 @@ void Client::network(const df::EventNetwork *p_network_event) {
     memset(cpacket, 0, 4096);
     if(network_manager.receive(cpacket, 4096, false))
     {
+        cpacket[4095] = '\0';
         std::cout<< cpacket << std::endl;
+        std::string data = cpacket;
+        syncHalp->process(this, data);
     }
 }
 
