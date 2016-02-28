@@ -145,7 +145,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
             if(type == "Hero")
             {
                 std::cout<< "we have a hero";
-                data = (cpacket+3);
+                //data = (cpacket+3);
                 //new Clientship
             }
         }
@@ -154,7 +154,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
            data = cpacket;
         }
         std::cout<< data << std::endl;
-        syncHalp->process(this, data);
+        //syncHalp->process(this, data);
     }
     else
     {
