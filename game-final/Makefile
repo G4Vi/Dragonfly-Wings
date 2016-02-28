@@ -33,8 +33,8 @@ GAMESRC= \
          EventNuke.cpp \
          Explosion.cpp \
          GameOver.cpp \
-         HostStart.cpp \
-         ClientStart.cpp \
+         GameStart.cpp \
+         Sync.cpp \
          Host.cpp \
 		 Client.cpp \
          Points.cpp \

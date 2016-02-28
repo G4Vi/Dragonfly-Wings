@@ -9,12 +9,14 @@
 #include "Reticle.h"
 
 #include "Settings.h"
+#include "Sync.h"
 
 class Host : public df::Object {
 
  private:
   Reticle *p_reticle;
   Settings* theSet;
+  Sync* syncHalp;
 
   int fire_slowdown;
   int fire_countdown;
@@ -28,10 +30,10 @@ class Host : public df::Object {
   void fire(df::Position target);
   void step();
   void nuke();
-  bool determineObChange(Object* anobject, char* messageStatus);
-  int sendObject(Object*, char* status);
+  
  public:
   Host(Settings* info);
   ~Host();
   int eventHandler(const df::Event *p_e);
 };
+

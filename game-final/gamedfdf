@@ -215,4 +215,16 @@ g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
 g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
 [01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
 g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
-g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientS
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make[C[C[C[C[Kmake
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make[Kmake
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make[Kmake
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m [K[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m exit
+
+Script done on Sun 28 Feb 2016 05:02:41 AM EST

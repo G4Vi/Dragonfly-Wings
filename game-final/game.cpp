@@ -9,8 +9,7 @@
 #include "ResourceManager.h"
 
 // Game includes.
-#include "HostStart.h"
-#include "ClientStart.h"
+#include "GameStart.h"
 #include "Star.h"
 
 #include <iostream>
@@ -62,8 +61,7 @@ void loadResources(void) {
   resource_manager.loadSprite("sprites/ship-spr.txt", "ship");
   resource_manager.loadSprite("sprites/bullet-spr.txt", "bullet");
   resource_manager.loadSprite("sprites/explosion-spr.txt", "explosion");
-  resource_manager.loadSprite("sprites/hoststart-spr.txt", "hoststart");
-  resource_manager.loadSprite("sprites/clientstart-spr.txt", "clientstart");
+  resource_manager.loadSprite("sprites/gamestart-spr.txt", "gamestart");
   resource_manager.loadSprite("sprites/gameover-spr.txt", "gameover");
   resource_manager.loadSound("sounds/fire.wav", "fire");
   resource_manager.loadSound("sounds/explode.wav", "explode");
@@ -78,10 +76,7 @@ void populateWorld(Settings* info) {
   // Spawn some Stars.
   for (int i=0; i<16; i++) 
     new Star;
-   
-  // Create GameStart object of the host or client variety
-  if(info->type == 0)
-      new HostStart(info);
-  else
-      new HostStart(info);
+  
+  new GameStart(info);
+  
 }

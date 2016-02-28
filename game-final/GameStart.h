@@ -1,12 +1,12 @@
 //
-// HostStart.h
+// GameStart.h
 //
 
 #include "Music.h"
 #include "ViewObject.h"
 #include "Settings.h"
 
-class HostStart : public df::ViewObject {
+class GameStart : public df::ViewObject {
 
  private:
   df::Music *p_music;
@@ -14,8 +14,9 @@ class HostStart : public df::ViewObject {
   void start();
 
  public:
-  HostStart(Settings* info);
+  GameStart(Settings* info);
   int eventHandler(const df::Event *p_e);
   void draw();
   void playMusic();
 };
+

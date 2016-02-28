@@ -48,17 +48,14 @@ Host::Host(Settings* info) {
     // Need to update rate control each step.
     registerInterest(df::STEP_EVENT);
 
-    //Create a Network Manager and a Sentry to create network events
-    df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-    network_manager.registerInterest(this, df::NETWORK_EVENT);
-    new df::Sentry;
+    
 
     // Set object type.
     setType("Hero");
 
     // Set starting location.
     df::WorldManager &world_manager = df::WorldManager::getInstance();
-    df::Position pos(7, world_manager.getBoundary().getVertical()/2);
+    df::Position pos(7, world_manager.getBoundary().getVertical()/3);
     setPosition(pos);
 
     // Create reticle for firing bullets.
@@ -72,6 +69,11 @@ Host::Host(Settings* info) {
     fire_countdown = fire_slowdown;
     nuke_count = 1;
 
+    //Create a Network Manager and a Sentry to create network events
+    df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+    network_manager.registerInterest(this, df::NETWORK_EVENT);
+    new df::Sentry;    
+    syncHalp = new Sync;
     network_manager.startUp(info);
 
 }
@@ -226,35 +228,16 @@ void Host::step() {
     {
         char* messageStatus;
         //Local ship
-        if(determineObChange(this, messageStatus))
+        if(syncHalp->determineObChange(this, messageStatus))
         {
             std::cout << "ship has moved" << std::endl;
-            sendObject(this, messageStatus);
+            syncHalp->sendObject(this, messageStatus);
         }
     }
 
 }
 
-bool Host::determineObChange(Object* anobject, char* messageStatus)
-{
-    if(anobject->getType() ==  "Hero")
-    {
-        if(anobject->isModified(df::POS))                                          
-        {
-            messageStatus = "UPDATE";
-            return true;            
-        }                                                                      
-    }
-    return false;
-}
 
-int Host::sendObject(Object* tempOb, char* status)
-{
-    df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-    std::string thedata =  tempOb->serialize();                                        
-    network_manager.send2((void *)thedata.c_str(), thedata.length()+1);  
-    return 0;
-}
 
 // Send "nuke" event to all objects.
 void Host::nuke() {
