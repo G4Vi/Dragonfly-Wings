@@ -55,7 +55,7 @@ Client::Client(Settings* info) {
 
     // Set starting location.
     df::WorldManager &world_manager = df::WorldManager::getInstance();
-    df::Position pos(7, world_manager.getBoundary().getVertical());
+    df::Position pos(7, world_manager.getBoundary().getVertical()/3);
     setPosition(pos);
 
     // Create reticle for firing bullets.

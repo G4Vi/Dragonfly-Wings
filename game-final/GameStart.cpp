@@ -23,7 +23,7 @@ GameStart::GameStart(Settings* info) {
 
     // Link to "message" sprite.
     df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
-    df::Sprite *p_temp_sprite = resource_manager.getSprite("GameStart");
+    df::Sprite *p_temp_sprite = resource_manager.getSprite("gamestart");
     if (!p_temp_sprite) {
         df::LogManager &log_manager = df::LogManager::getInstance();
         log_manager.writeLog("GameStart::GameStart(): Warning! Sprite 'gamestart' not found");
