@@ -141,7 +141,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         std::cout<< cpacket << std::endl;
         if(memcmp(cpacket, "NEW", 3))
         {
-            type = df::match(cpacket, "type:");
+            type = df::match(cpacket, "type:Hero");
             std::cout<< "type is " << type << std::endl;
             if(type == "Hero")
             {
