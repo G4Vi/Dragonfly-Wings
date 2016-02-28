@@ -135,6 +135,7 @@ void Host::network(const df::EventNetwork *p_network_event) {
     memset(packet, 0, 4096);
     if(network_manager.receive(packet, 4096, false))
     {
+        std::cout << "recv\n";
         std::cout<< packet << std::endl;
     }
 }

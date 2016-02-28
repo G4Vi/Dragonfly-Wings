@@ -134,6 +134,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
     memset(cpacket, 0, 4096);
     if(network_manager.receive(cpacket, 4096, false))
     {
+        std::cout < "recv\n";
         cpacket[4095] = '\0';
         std::cout<< cpacket << std::endl;
         std::string data = cpacket;
