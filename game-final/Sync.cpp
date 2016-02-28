@@ -29,9 +29,10 @@ int Sync::sendObject(df::Object* tempOb, char* status)
     std::string thedata, otherstring;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     //thedata  = status + tempOb->serialize();
-    otherstring = status;
-    thedata = tempOb->serialize();
-    thedata += otherstring;
+    //otherstring = status;
+    thedata = "NEW";
+    thedata += tempOb->serialize();
+
     std::cout << "thedata is " << thedata << std::endl;
     network_manager.send2((void *)thedata.c_str(), thedata.length()+1);  
     return 0;
