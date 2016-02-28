@@ -13,7 +13,6 @@
 #include "ClientStart.h"
 #include "Star.h"
 
-#include "Settings.h"
 #include <iostream>
 
 // Function prototypes.
@@ -82,7 +81,7 @@ void populateWorld(Settings* info) {
    
   // Create GameStart object of the host or client variety
   if(info->type == 0)
-      new HostStart();
+      new HostStart(info);
   else
-      new ClientStart();
+      new HostStart(info);
 }
