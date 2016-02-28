@@ -133,7 +133,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);
-    if(i)
+    if(i > 0)
     {
         std::cout < "recv\n";
         cpacket[4095] = '\0';
