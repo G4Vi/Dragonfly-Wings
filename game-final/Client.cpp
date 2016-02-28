@@ -139,9 +139,12 @@ void Client::network(const df::EventNetwork *p_network_event) {
         cpacket[4095] = '\0';
         std::cout<< cpacket << std::endl;
         std::string data = cpacket;
-        syncHalp->process(this, data);
+        //syncHalp->process(this, data);
     }
-    std::cout << "i is " << i << std::endl;
+    else
+    {
+        std::cout << "i is " << i << std::endl;
+    }
 }
 
 // Take appropriate action according to mouse action.
@@ -236,7 +239,7 @@ void Client::step() {
         //Local ship
         if(syncHalp->determineObChange(this, messageStatus))
         {
-            std::cout << "ship has moved" << std::endl;
+            //std::cout << "ship has moved" << std::endl;
             syncHalp->sendObject(this, messageStatus);
         }
     }
