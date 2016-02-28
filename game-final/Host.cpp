@@ -219,11 +219,16 @@ void Host::step() {
 
   //Send out data by network every step
   df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-  char* message = "BumparKar";
   std::string thedata =  this->serialize();
   std::cout << thedata;
   if(network_manager.isConnected())
-      network_manager.send2(message, 10);
+  {
+      //Ship position
+      if(this->isModified(df::POS))
+      {
+          network_manager.send2((void *)thedata.c_str(), thedata.length()+1);
+      }
+  }
  
 }
 

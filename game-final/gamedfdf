@@ -71,4 +71,70 @@ sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_
 sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:2,
 sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:0,
 sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:1,
-sprite_
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:2,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:0,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:1,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:2,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:0,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:1,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:2,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:0,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:1,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:2,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:0,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:1,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:0,sprite_slowdown:3,sprite_slowdown_count:2,
+sprite_name:ship,sprite_center:true,sprite_transparency: ,sprite_index:1,sprite_slowdown:3,sprite_slowdown_count:0,
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m ./game -c[K cd /home/g4vi/books/Adison.Wesley.Linux.Kernel.Development.3rd.Edition.Jun.22010M[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m [C[C[C[C[C[31Pmnt/computoid/opt/rtorrent/download/misc
+[KM[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Chome/g4vi[K[Kgit push origin mastercommit -a -m "Network events are now working finally"cd ..[K./game[2Pmakevim Sentry.cppmake[K./game[1Pcd ..
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m git commit -a -m "Starting to get serial"
+[master 7d013c0] Starting to get serial
+ 3 files changed, 24 insertions(+), 25 deletions(-)
+ rewrite game-final/dragonfly.log (76%)
+ rewrite game-final/game (84%)
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m gitt[K add *
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m git add *commit -a -m "Starting to get serial"
+[master 48ab470] Starting to get serial
+ 24 files changed, 1497 insertions(+)
+ create mode 100644 game-final/.Host.cpp.swp
+ create mode 100644 game-final/.NetworkManager.cpp.swp
+ create mode 100644 game-final/.NetworkManager.h.swp
+ create mode 100644 game-final/.ycm_extra_conf.py
+ create mode 100644 game-final/.ycm_extra_conf.pyc
+ create mode 100644 game-final/Client.cpp
+ create mode 100644 game-final/Client.h
+ create mode 100644 game-final/ClientStart.cpp
+ create mode 100644 game-final/ClientStart.h
+ create mode 100644 game-final/EventNetwork.cpp
+ create mode 100644 game-final/EventNetwork.h
+ create mode 100644 game-final/Host.cpp
+ create mode 100644 game-final/Host.h
+ create mode 100644 game-final/HostStart.cpp
+ create mode 100644 game-final/HostStart.h
+ create mode 100644 game-final/NetworkManager.cpp
+ create mode 100644 game-final/NetworkManager.h
+ create mode 100644 game-final/Sentry.cpp
+ create mode 100644 game-final/Sentry.h
+ create mode 100644 game-final/Settings.cpp
+ create mode 100644 game-final/Settings.h
+ create mode 100644 game-final/gamedfdf
+ create mode 100644 game-final/sprites/clientstart-spr.txt
+ create mode 100644 game-final/sprites/hoststart-spr.txt
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m git push origin master 
+Username for 'https://github.com': g4vin
+Password for 'https://g4vin@github.com': 
+Counting objects: 40, done.
+Delta compression using up to 2 threads.
+Compressing objects:   2% (1/34)   Compressing objects:   5% (2/34)   Compressing objects:   8% (3/34)   Compressing objects:  11% (4/34)   Compressing objects:  14% (5/34)   Compressing objects:  17% (6/34)   Compressing objects:  20% (7/34)   Compressing objects:  23% (8/34)   Compressing objects:  26% (9/34)   Compressing objects:  29% (10/34)   Compressing objects:  32% (11/34)   Compressing objects:  35% (12/34)   Compressing objects:  38% (13/34)   Compressing objects:  41% (14/34)   Compressing objects:  44% (15/34)   Compressing objects:  47% (16/34)   Compressing objects:  50% (17/34)   Compressing objects:  52% (18/34)   Compressing objects:  55% (19/34)   Compressing objects:  58% (20/34)   Compressing objects:  61% (21/34)   Compressing objects:  64% (22/34)   Compressing objects:  67% (23/34)   Compressing objects:  70% (24/34)   Compressing objects:  73% (25/34)   Compressing objects:  76% (26/34)   Compressing objects:  79% (27/34)   Compressing objects:  82% (28/34)   Compressing objects:  85% (29/34)   Compressing objects:  88% (30/34)   Compressing objects:  91% (31/34)   Compressing objects:  94% (32/34)   Compressing objects:  97% (33/34)   Compressing objects: 100% (34/34)   Compressing objects: 100% (34/34), done.
+Writing objects:   2% (1/34)   Writing objects:   5% (2/34)   Writing objects:   8% (3/34)   Writing objects:  11% (4/34)   Writing objects:  14% (5/34)   Writing objects:  17% (6/34)   Writing objects:  20% (7/34)   Writing objects:  23% (8/34)   Writing objects:  26% (9/34)   Writing objects:  32% (11/34)   Writing objects:  38% (13/34)   Writing objects:  44% (15/34)   Writing objects:  50% (17/34)   Writing objects:  52% (18/34)   Writing objects:  55% (19/34)   Writing objects:  58% (20/34)   Writing objects:  61% (21/34)   Writing objects:  64% (22/34)   Writing objects:  67% (23/34)   Writing objects:  70% (24/34)   Writing objects:  73% (25/34)   Writing objects:  76% (26/34)   Writing objects:  79% (27/34)   Writing objects:  82% (28/34)   Writing objects:  85% (29/34)   Writing objects:  88% (30/34)   Writing objects:  94% (32/34)   Writing objects:  97% (33/34)   Writing objects: 100% (34/34)   Writing objects: 100% (34/34), 83.95 KiB | 0 bytes/s, done.
+Total 34 (delta 17), reused 0 (delta 0)
+To https://github.com/g4vin/Dragonfly-Wings.git
+   5ba908b..48ab470  master -> master
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m git push origin master commit -a -m "Starting to get serial"add *[Kcommit -a -m "Starting to get serial"cd ..[K./game -c[K[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m ./game -c[K[K[K[K[K[K[K[K[Kmake
+make: *** No targets specified and no makefile found.  Stop.
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00m cd gae[Kme-final/
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m make
+g++  -c -I../dragonfly/include/  Host.cpp -o Host.o
+g++  game.cpp Bullet.o EventNuke.o Explosion.o GameOver.o HostStart.o ClientStart.o Host.o Client.o Points.o Reticle.o Saucer.o Star.o Settings.o EventNetwork.o Sentry.o NetworkManager.o -o game -I../dragonfly/include/  -L../dragonfly/lib/  -ldragonfly-linux64 -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lrt 
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings/game-final $[00m cd ..
+[01;32mg4vi@TELEPORTER[01;34m ~/Code/CS4513/Dragonfly-Wings $[00
