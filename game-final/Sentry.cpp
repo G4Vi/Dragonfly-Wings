@@ -34,6 +34,7 @@ void Sentry::doStep()
     if(network_manager.isData()> 0)
     {
         std::cout << "isData is " << network_manager.isData() << std::endl;
+        std::cout << "connected? " << network_manager.isConnected() << std::endl;
         network_manager.onEvent(&EN);
     }
 }                                                                                                            
