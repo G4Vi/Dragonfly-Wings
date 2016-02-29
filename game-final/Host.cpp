@@ -186,7 +186,7 @@ void Host::network(const df::EventNetwork *p_network_event) {
 // Take appropriate action according to mouse action.
 void Host::mouse(const df::EventMouse *p_mouse_event) {
 
-    // Pressed button?
+    // Pressed button?ssw
     if ((p_mouse_event->getMouseAction() == df::CLICKED) &&
             (p_mouse_event->getMouseButton() == df::Mouse::LEFT))
         fire(p_mouse_event->getMousePosition());
@@ -314,7 +314,7 @@ void Host::step() {
                 os2.seekp(0);
                 os2 << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y:" << saucers[i]->getPosition().getY() << ",";
                 std::cout << "os2 is " << os2.str() << std::endl;
-                std::string temp = os2.str();
+                const std::string &temp = os2.str();
                 msize = temp.length();
                 os2.seekp(0);
                 os2 << msize;
@@ -334,7 +334,7 @@ void Host::step() {
                 os3.seekp(0);
                 os3 << messageStatus << ",id:" << bullets[i]->getId() << ",x:"  << bullets[i]->getPosition().getX() << ",y:" << bullets[i]->getPosition().getY() << ",";
                 std::cout << "os2 is " << os3.str() << std::endl;
-                std::string temp = os3.str();
+                const std::string &temp = os3.str();
                 msize = temp.length();
                 os3.seekp(0);
                 os3 << msize;

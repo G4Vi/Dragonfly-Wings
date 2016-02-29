@@ -311,8 +311,8 @@ void Client::step() {
                 bullets2[i]->serialize();
                 os3.seekp(0);
                 os3 << messageStatus << ",id:" << bullets2[i]->getId() << ",x:"  << bullets2[i]->getPosition().getX() << ",y:" << bullets2[i]->getPosition().getY() << ",";
-                std::cout << "os2 is " << os3.str() << std::endl;
-                std::string temp = os3.str();
+                std::cout << "os3 is " << os3.str() << std::endl;
+                const std::string &temp = os3.str();
                 msize = temp.length();
                 os3.seekp(0);
                 os3 << msize;
