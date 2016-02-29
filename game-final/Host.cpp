@@ -297,7 +297,7 @@ void Host::step() {
             {
                 saucers[i]->serialize();
                 os.seekp(0);
-                os << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y" << saucers[i]->getPosition().getY() << ",";
+                os << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y:" << saucers[i]->getPosition().getY() << ",";
                 const std::string &temp = os.str();
                 msize = temp.length();
                 os.seekp(0);
@@ -316,7 +316,7 @@ void Host::step() {
             if(linecnt < 10)
                 os << "0" << linecnt;
             else
-                os << "0" << linecnt;
+                os << linecnt;
             linecnt2 = os.str();
             message = linecnt2 + herostr + saucerstr;
             std::cout << message << std::endl;
