@@ -135,7 +135,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     df::WorldManager &world_manager = df::WorldManager::getInstance();
 
-    std::cout<< "Client is here" << std::endl;
+
     memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);
     if(i > 0)
@@ -160,6 +160,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
             }
             if(type == "Saucer")
             {
+                std::cout << "suacerpos\n";
                 saucers.push_back(new Saucer);
                 std::string x = df::match(data.c_str(), "pos-x");
                 std::string y = df::match(data.c_str(), "pos-y");

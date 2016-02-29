@@ -143,7 +143,7 @@ void Host::network(const df::EventNetwork *p_network_event) {
     std::string type, data, sprite_name;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
      df::WorldManager &world_manager = df::WorldManager::getInstance();
-    std::cout<< "Server is here" << std::endl;
+
     memset(packet, 0, 4096);
     int i = network_manager.receive(packet, 4096, false);
     if(i > 0)
