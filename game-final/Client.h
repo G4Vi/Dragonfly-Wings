@@ -13,7 +13,6 @@
 #include "RemoteShip.h"
 
 #include "Saucer.h"
-#include "Bullet.h"
 
 #include <vector>
 
@@ -25,7 +24,6 @@ class Client : public df::Object {
   Sync* syncHalp;
   RemoteShip* otherPlayer;
   std::vector<Saucer*> saucers;
-  std::vector<Bullet*> bullets;
 
   int fire_slowdown;
   int fire_countdown;

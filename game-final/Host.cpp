@@ -12,7 +12,7 @@
 #include "WorldManager.h"
 
 // Game includes.
-//#include "Bullet.h"
+#include "Bullet.h"
 #include "EventNuke.h"
 #include "Explosion.h"
 #include "GameOver.h"

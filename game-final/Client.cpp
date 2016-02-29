@@ -17,6 +17,7 @@
 #include "Explosion.h"
 #include "GameOver.h"
 #include "Client.h"
+#include "Bullet.h"
 #include "RemoteShip.h"
 
 // Networking
