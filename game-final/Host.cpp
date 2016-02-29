@@ -272,21 +272,21 @@ void Host::step() {
     {
         std::string messageStatus;
         //Local ship
-        if(syncHalp->determineObChange(this, &messageStatus))
+        /*if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
-        }
+        }*/
         df::WorldManager &world_manager = df::WorldManager::getInstance();
         df::ObjectList all_objects = world_manager.getAllObjects();
         df::ObjectListIterator i(&all_objects);
-        /*for (i.first(); !i.isDone(); i.next())
+        for (i.first(); !i.isDone(); i.next())
         {
             if(syncHalp->determineObChange(i.currentObject(), &messageStatus))
             {
                  std::cout << i.currentObject()->getType() << std::endl;
                  syncHalp->sendObject(i.currentObject(), messageStatus);
             }
-        }*/
+        }
     }
 
 }
