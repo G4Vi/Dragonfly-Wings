@@ -297,13 +297,15 @@ void Host::step() {
             {
                 saucers[i]->serialize();
                 os.seekp(0);
-                os << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << "y," << saucers[i]->getPosition().getY() << ",";
+                os << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y" << saucers[i]->getPosition().getY() << ",";
                 const std::string &temp = os.str();
                 msize = temp.length();
                 os.seekp(0);
                 os << msize;
                 os << temp;
                 ss << os.str();
+                linecnt++;
+                std::cout << "saucer: "<< os.str() << std::endl;
             }
         }
         saucerstr = ss.str();
