@@ -145,50 +145,31 @@ void Host::network(const df::EventNetwork *p_network_event) {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
      df::WorldManager &world_manager = df::WorldManager::getInstance();
 
-    memset(packet, 0, 4096);
-    int i = network_manager.receive(packet, 4096, false);
-    if(i > 0)
-    {
-        packet[4095] = '\0';
-        std::cout<< packet << std::endl;
-        if(memcmp(packet, "NEW", 3)==0)
-        {
-            type = df::match(packet, "type");
-            if(type == "Hero")
-            {
-                data = (packet+3);
-                this->otherPlayer = new RemoteShip;
+     std::cout << p_network_event->line << std::endl;
 
-                if(otherPlayer->getType() == "RemoteShip")
-                {
-                    std::string x = df::match(data.c_str(), "pos-x");
-                    std::string y = df::match(data.c_str(), "pos-y");
-                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-                    world_manager.moveObject(otherPlayer, new_pos);
-                }
-            }
-        }
-        else if(memcmp(packet, "UPDATE", 6)==0)
-        {
-            sprite_name = df::match(packet, "sprite_name");
-            if(sprite_name == "ship")
-            {
-                data = (packet+6);
-                if(otherPlayer->getType() == "RemoteShip")
-                {
-                    std::string x = df::match(data.c_str(), "pos-x");
-                    std::string y = df::match(data.c_str(), "pos-y");
-                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-                    world_manager.moveObject(otherPlayer, new_pos);
-                }
-            }
-        }
-        else
-        {
-           data = packet;
-        }
-        std::cout<< data << std::endl;
-    }
+     if(memcmp(p_network_event->line, "NEW", 3)==0)
+     {
+         data = (p_network_event->line+4);
+         if(memcmp(p_network_event->line, "NEWH", 4) == 0)
+         {
+             otherPlayer = new RemoteShip;
+             std::string x = df::match(data.c_str(), "x");
+             std::string y = df::match(data.c_str(), "y");
+             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+             world_manager.moveObject(otherPlayer, new_pos);
+         }
+     }
+     else if(memcmp(p_network_event->line, "UPDATE", 6)==0)
+     {
+         data = (p_network_event->line+7);
+         if(memcmp(p_network_event->line, "UPDATEH", 7) == 0)
+         {
+             std::string x = df::match(data.c_str(), "x");
+             std::string y = df::match(data.c_str(), "y");
+             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+             world_manager.moveObject(otherPlayer, new_pos);
+         }
+     }
 }
 
 // Take appropriate action according to mouse action.

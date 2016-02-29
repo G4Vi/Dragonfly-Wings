@@ -23,6 +23,7 @@
 // Networking
 #include "Sentry.h"
 #include "NetworkManager.h"
+#include <sstream>
 #include <iostream> //will remove
 char cpacket[4096];
 
@@ -161,60 +162,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
     }
 
 
-    /*memset(cpacket, 0, 4096);
-    int i = network_manager.receive(cpacket, 4096, false);
-    if(i > 0)
-    {       
-        cpacket[4095] = '\0';
-        std::cout<< cpacket << std::endl;
-        if(memcmp(cpacket, "NEW", 3)==0)
-        {
-            data = (cpacket+3);
-            type = df::match(cpacket, "type");
-            if(type == "Hero")
-            {
-                otherPlayer = new RemoteShip;
 
-                if(otherPlayer->getType() == "RemoteShip")
-                {
-                    std::string x = df::match(data.c_str(), "pos-x");
-                    std::string y = df::match(data.c_str(), "pos-y");
-                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-                    world_manager.moveObject(otherPlayer, new_pos);
-                }
-            }
-            if(type == "Saucer")
-            {
-                std::cout << "suacerpos\n";
-                saucers.push_back(new Saucer);
-                std::string x = df::match(data.c_str(), "pos-x");
-                std::string y = df::match(data.c_str(), "pos-y");
-                df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-                world_manager.moveObject(saucers.back(), new_pos);
-                //syncHalp->process(sauce, data);
-            }
-        }
-        else if(memcmp(cpacket, "UPDATE", 6)==0)
-        {
-            sprite_name = df::match(cpacket, "sprite_name");
-            if(sprite_name == "ship")
-            {
-                data = (cpacket+6);
-                if(otherPlayer->getType() == "RemoteShip")
-                {
-                    std::string x = df::match(data.c_str(), "pos-x");
-                    std::string y = df::match(data.c_str(), "pos-y");
-                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-                    world_manager.moveObject(otherPlayer, new_pos);
-                }
-            }
-        }
-        else
-        {
-           data = cpacket;
-        }
-        std::cout<< data << std::endl;
-    }*/
 }
 
 // Take appropriate action according to mouse action.
@@ -306,11 +254,33 @@ void Client::step() {
     if(network_manager.isConnected())
     {
         std::string messageStatus;
-        //Local ship
+        std::string message;
+        std::ostringstream os;
+        int msize;
+
         if(syncHalp->determineObChange(this, &messageStatus))
-        {            
-            syncHalp->sendObject(this, messageStatus);
+        {
+            this->serialize();
+            os << messageStatus << ",x:" << getPosition().getX() << ",y:"  << getPosition().getY() << ",";
+            const std::string &temp = os.str();
+            msize = temp.length();
+            os.seekp(0);
+            if(msize < 10)
+            {
+                os << "0" << msize;
+            }
+            else
+            {
+                os << msize;
+            }
+            os << temp;
+            message = os.str();
+            message = "01" + message;
+            std::cout << message << std::endl;
+            std::cout << "done" << std::endl;
+            network_manager.send2((void *)message.c_str(), message.length());
         }
+
     }
 
 }
