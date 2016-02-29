@@ -303,7 +303,7 @@ void Client::step() {
            // std::cout << herostr << std::endl;
             //network_manager.send2((void *)message.c_str(), message.length());
         }
-        /* for (int i=0; i<bullets2.size(); i++)
+         for (int i=0; i<bullets2.size(); i++)
         {
             std::ostringstream os3;
             if(syncHalp->determineObChange(bullets2[i], &messageStatus))
@@ -322,7 +322,8 @@ void Client::step() {
                 //std::cout << "bullet: "<< os3.str() << std::endl;
             }
         }
-        bullets2tr = bbs.str(); */
+        bullets2tr = bbs.str();
+        bullets2tr.erase(bullets2tr.begin(), bullets2tr.end());
         if(linecnt > 0)
         {
             std::string linecnt2;

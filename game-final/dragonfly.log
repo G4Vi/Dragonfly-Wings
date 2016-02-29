@@ -1,0 +1,22 @@
+11:24:00    0 ****************************************************
+11:24:00    0 ** Dragonfly version 4.1 **
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Object)
+11:24:41  956 SceneGraph::updateAltitude(): remove from old altitude (2) failed!
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 SceneGraph::updateSolidness(): unable to remove solid object (Explosion)
+11:24:41  956 ** Game stopped **
+11:24:41  956 ****************************************************

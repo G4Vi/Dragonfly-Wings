@@ -325,6 +325,8 @@ void Host::step() {
             }
         }
         saucerstr = ss.str();
+
+        saucers.erase(saucers.begin(), saucers.end());
         for (int i=0; i<bullets.size(); i++)
         {
             std::ostringstream os3;
@@ -345,6 +347,7 @@ void Host::step() {
             }
         }
         bulletstr = bbs.str();
+        bullets.erase(bullets.begin(), bullets.end());
         if(linecnt > 0)
         {
             std::string linecnt2;

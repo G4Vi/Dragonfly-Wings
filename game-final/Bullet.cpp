@@ -47,10 +47,11 @@ int Bullet::eventHandler(const df::Event *p_e) {
   }
 
   if (p_e->getType() == df::COLLISION_EVENT) {
-      std::cout << "Bullet here NAO" << std:: endl;
-      std::cout.flush();
+
     const df::EventCollision *p_collision_event = dynamic_cast <const df::EventCollision *> (p_e);
+
     hit(p_collision_event);
+
     return 1;
   }
 
