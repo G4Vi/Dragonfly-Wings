@@ -151,13 +151,16 @@ void Client::network(const df::EventNetwork *p_network_event) {
         }
         else if(memcmp(p_network_event->line, "NEWS", 4) == 0)
         {
-            saucers.push_back(new Saucer);
+            Saucer* tempSaucer = new Saucer;
+            //saucers.push_back(new Saucer);
             std::string id = df::match(data.c_str(), "id");
-            saucers.back()->setId(atoi(id.c_str()));
+            //saucers.back()->setId(atoi(id.c_str()));
+            tempSaucer->setId(atoi(id.c_str()));
             std::string x = df::match(data.c_str(), "x");
             std::string y = df::match(data.c_str(), "y");
             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-            world_manager.moveObject(saucers.back(), new_pos);
+            //world_manager.moveObject(saucers.back(), new_pos);
+            world_manager.moveObject(tempSaucer, new_pos);
         }
         else if(memcmp(p_network_event->line, "NEWB", 4) == 0)
         {
