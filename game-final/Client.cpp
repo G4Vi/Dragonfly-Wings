@@ -38,6 +38,7 @@ Client::Client(Settings* info) {
         log_manager.writeLog("Client::Client(): Warning! Sprite '%s' not found",
                 "ship");
     } else {
+        p_temp_sprite->setColor(df::RED);
         setSprite(p_temp_sprite);
         setSpriteSlowdown(3);  // 1/3 speed animation.
         setTransparency();	   // Transparent sprite.
@@ -153,7 +154,8 @@ void Client::network(const df::EventNetwork *p_network_event) {
             if(type == "Saucer")
             {
                 data = (cpacket+3);
-                syncHalp->process(new Saucer, data);
+                Saucer* sauce = new Saucer;
+                syncHalp->process(sauce, data);
             }
         }
         else if(memcmp(cpacket, "UPDATE", 6)==0)
