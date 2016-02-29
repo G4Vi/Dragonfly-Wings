@@ -31,7 +31,7 @@ void Sentry::doStep()
 {
     EventNetwork EN;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-    if(network_manager.isData()> 0)
+    while(network_manager.isData()> 0)
     {        
         network_manager.onEvent(&EN);
     }

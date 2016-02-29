@@ -146,16 +146,19 @@ void Client::network(const df::EventNetwork *p_network_event) {
             type = df::match(cpacket, "type");
             if(type == "Hero")
             {
-                std::cout<< "we have a hero";
                 data = (cpacket+3);
                 this->otherPlayer = new RemoteShip;
                 syncHalp->process(otherPlayer, data);
+            }
+            if(type == "Saucer")
+            {
+                data = (cpacket+3);
+                syncHalp->process(new Saucer, data);
             }
         }
         else if(memcmp(cpacket, "UPDATE", 6)==0)
         {
             sprite_name = df::match(cpacket, "sprite_name");
-            std::cout<< "sprite_name is " << type << std::endl;
             if(sprite_name == "ship")
             {
                 data = (cpacket+6);
@@ -167,7 +170,6 @@ void Client::network(const df::EventNetwork *p_network_event) {
            data = cpacket;
         }
         std::cout<< data << std::endl;
-        //syncHalp->process(this, data);
     }    
 }
 

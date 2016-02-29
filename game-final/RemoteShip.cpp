@@ -39,7 +39,7 @@ RemoteShip::RemoteShip() {
   registerInterest(df::STEP_EVENT);
 
   // Set object type.
-  setType("Hero");
+  setType("RemoteShip");
 
   // Set starting location.
   df::WorldManager &world_manager = df::WorldManager::getInstance();
