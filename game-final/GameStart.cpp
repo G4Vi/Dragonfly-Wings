@@ -15,7 +15,6 @@
 #include "Host.h"
 #include "Client.h"
 #include "Music.h"
-#include "Points.h"
 
 GameStart::GameStart(Settings* info) {
     setType("GameStart");

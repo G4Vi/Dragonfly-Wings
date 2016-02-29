@@ -1,7 +1,8 @@
 //
 // Points.h
 // 
-
+#ifndef __POINTS_H__ 
+#define __POINTS_H__
 #include "Event.h"		
 #include "ViewObject.h"
 
@@ -14,3 +15,4 @@ class Points : public df::ViewObject {
   int eventHandler(const df::Event *p_e);
   int scoreUpdate;
 };
+#endif //POINTS_H
