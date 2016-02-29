@@ -336,8 +336,7 @@ void Client::step() {
             else
                 bs << linecnt;
             linecnt2 = bs.str();
-            message = linecnt2 + herostr;
-            //message = linecnt2 + herostr + bullets2tr;
+            message = linecnt2 + herostr + bullets2tr;
             //std::cout << message << std::endl;
             network_manager.send2((void *)message.c_str(), message.length());
         }
