@@ -1,0 +1,6 @@
+15:38:13    0 ****************************************************
+15:38:13    0 ** Dragonfly version 4.1 **
+15:39:05 1458 GameManager::run(): Can't keep up! frame_time 33 ms, split 210 ms
+15:45:53 13796 WorldManager::markForDelete(): unable to add object (nil) to deletions list
+15:45:59 13985 ** Game stopped **
+15:45:59 13985 ****************************************************

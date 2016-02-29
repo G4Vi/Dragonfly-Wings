@@ -24,6 +24,7 @@
 #include "Sentry.h"
 #include "NetworkManager.h"
 #include <sstream>
+#include <stdlib.h>		// for rand()
 #include <iostream> //will remove
 char cpacket[4096];
 std::vector<Bullet*> bullets2;
@@ -80,6 +81,9 @@ Client::Client(Settings* info) {
     network_manager.startUp(info);
 
     thepoints = new Points(1);
+
+    this->setId(rand()%20);
+    //std::cout << "the points are " << df::toString(thepoints->getValue()) << std::endl;
 
 }
 
