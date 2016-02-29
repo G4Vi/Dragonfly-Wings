@@ -138,12 +138,24 @@ void Client::network(const df::EventNetwork *p_network_event) {
 
     if(memcmp(p_network_event->line, "NEW", 3)==0)
     {
-        data = (p_network_event->line+3);
+        data = (p_network_event->line+4);
         if(memcmp(p_network_event->line, "NEWH", 4) == 0)
         {
             otherPlayer = new RemoteShip;
-            std::string x = df::match(data.c_str(), "pos-x");
-            std::string y = df::match(data.c_str(), "pos-y");
+            std::string x = df::match(data.c_str(), "x");
+            std::string y = df::match(data.c_str(), "y");
+            df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+            world_manager.moveObject(otherPlayer, new_pos);
+        }
+    }
+    else if(memcmp(p_network_event->line, "UPDATE", 6)==0)
+    {
+        data = (p_network_event->line+7);
+        if(memcmp(p_network_event->line, "UPDATEH", 7) == 0)
+        {
+            otherPlayer = new RemoteShip;
+            std::string x = df::match(data.c_str(), "x");
+            std::string y = df::match(data.c_str(), "y");
             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
             world_manager.moveObject(otherPlayer, new_pos);
         }

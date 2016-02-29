@@ -290,7 +290,7 @@ void Host::step() {
         if(syncHalp->determineObChange(this, &messageStatus))
         {
             this->serialize();
-            os << messageStatus << ",pos-x:" << getPosition().getX() << ",pos-y:"  << getPosition().getY() << ",";
+            os << messageStatus << ",x:" << getPosition().getX() << ",y:"  << getPosition().getY() << ",";
             const std::string &temp = os.str();
             msize = temp.length();
             os.seekp(0);
