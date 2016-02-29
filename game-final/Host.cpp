@@ -17,7 +17,7 @@
 #include "Explosion.h"
 #include "GameOver.h"
 #include "Host.h"
-#include "Saucer.h"
+
 
 // Networking
 #include "Sentry.h"
@@ -76,6 +76,14 @@ Host::Host(Settings* info) {
     new df::Sentry;    
     syncHalp = new Sync;
     network_manager.startUp(info);
+
+    // Spawn some saucers to shoot.
+    for (int i=0; i<16; i++)
+    {
+        saucers.push_back(new Saucer);
+    }
+
+
 
 }
 
@@ -272,11 +280,20 @@ void Host::step() {
     {
         std::string messageStatus;
         //Local ship
-        /*if(syncHalp->determineObChange(this, &messageStatus))
+        if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
-        }*/
-        df::WorldManager &world_manager = df::WorldManager::getInstance();
+        }
+
+        for (int i=0; i<saucers.size(); i++)
+        {
+            if(syncHalp->determineObChange(saucers[i], &messageStatus))
+            {
+                syncHalp->sendObject(saucers[i], messageStatus);
+            }
+        }
+
+        /*df::WorldManager &world_manager = df::WorldManager::getInstance();
         df::ObjectList all_objects = world_manager.getAllObjects();
         df::ObjectListIterator i(&all_objects);
         for (i.first(); !i.isDone(); i.next())
@@ -286,7 +303,7 @@ void Host::step() {
                  std::cout << i.currentObject()->getType() << std::endl;
                  syncHalp->sendObject(i.currentObject(), messageStatus);
             }
-        }
+        }*/
     }
 
 }

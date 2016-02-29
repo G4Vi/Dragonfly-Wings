@@ -12,6 +12,10 @@
 #include "Sync.h"
 #include "RemoteShip.h"
 
+#include "Saucer.h"
+
+#include <vector>
+
 class Client : public df::Object {
 
  private:
@@ -19,7 +23,7 @@ class Client : public df::Object {
   Settings* theSet;
   Sync* syncHalp;
   RemoteShip* otherPlayer;
-  
+  std::vector<Saucer*> saucers;
 
   int fire_slowdown;
   int fire_countdown;

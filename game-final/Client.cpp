@@ -18,7 +18,6 @@
 #include "Explosion.h"
 #include "GameOver.h"
 #include "Client.h"
-#include "Saucer.h"
 #include "RemoteShip.h"
 
 // Networking
@@ -145,11 +144,11 @@ void Client::network(const df::EventNetwork *p_network_event) {
         std::cout<< cpacket << std::endl;
         if(memcmp(cpacket, "NEW", 3)==0)
         {
+            data = (cpacket+3);
             type = df::match(cpacket, "type");
             if(type == "Hero")
             {
-                data = (cpacket+3);
-                this->otherPlayer = new RemoteShip;
+                otherPlayer = new RemoteShip;
 
                 if(otherPlayer->getType() == "RemoteShip")
                 {
@@ -161,9 +160,12 @@ void Client::network(const df::EventNetwork *p_network_event) {
             }
             if(type == "Saucer")
             {
-                data = (cpacket+3);
-                Saucer* sauce = new Saucer;
-                syncHalp->process(sauce, data);
+                saucers.push_back(new Saucer);
+                std::string x = df::match(data.c_str(), "pos-x");
+                std::string y = df::match(data.c_str(), "pos-y");
+                df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+                world_manager.moveObject(saucers.back(), new_pos);
+                //syncHalp->process(sauce, data);
             }
         }
         else if(memcmp(cpacket, "UPDATE", 6)==0)

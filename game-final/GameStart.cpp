@@ -16,7 +16,6 @@
 #include "Client.h"
 #include "Music.h"
 #include "Points.h"
-#include "Saucer.h"
 
 GameStart::GameStart(Settings* info) {
     setType("GameStart");
@@ -79,10 +78,7 @@ void GameStart::start() {
 
     if(theSet->type == 0)
     {
-        new Host(theSet);
-        // Spawn some saucers to shoot.
-        for (int i=0; i<16; i++)
-            new Saucer;
+        new Host(theSet);        
     }
     else
     {
