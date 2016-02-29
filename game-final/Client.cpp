@@ -132,7 +132,7 @@ int Client::eventHandler(const df::Event *p_e) {
 
 // Network
 void Client::network(const df::EventNetwork *p_network_event) {
-    std::string type, data;
+    std::string type, data, sprite_name;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     std::cout<< "Client is here" << std::endl;
     memset(cpacket, 0, 4096);
@@ -144,12 +144,21 @@ void Client::network(const df::EventNetwork *p_network_event) {
         if(memcmp(cpacket, "NEW", 3)==0)
         {
             type = df::match(cpacket, "type");
-            std::cout<< "type is " << type << std::endl;
             if(type == "Hero")
             {
                 std::cout<< "we have a hero";
                 data = (cpacket+3);
                 this->otherPlayer = new RemoteShip;
+                syncHalp->process(otherPlayer, data);
+            }
+        }
+        else if(memcmp(cpacket, "UPDATE", 6)==0)
+        {
+            sprite_name = df::match(cpacket, "sprite_name");
+            std::cout<< "sprite_name is " << type << std::endl;
+            if(type == "ship")
+            {
+                data = (cpacket+6);
                 syncHalp->process(otherPlayer, data);
             }
         }
@@ -159,11 +168,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         }
         std::cout<< data << std::endl;
         //syncHalp->process(this, data);
-    }
-    else
-    {
-
-    }
+    }    
 }
 
 // Take appropriate action according to mouse action.
