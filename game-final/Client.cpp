@@ -84,6 +84,12 @@ Client::Client(Settings* info) {
 }
 
 Client::~Client() {
+    df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+    df::WorldManager &world_manager = df::WorldManager::getInstance();
+
+    network_manager.shutDown();
+    world_manager.markForDelete(otherPlayer);
+    world_manager.markForDelete(thepoints);
 
     // Create GameOver object.
     GameOver *p_go = new GameOver;
@@ -135,7 +141,7 @@ int Client::eventHandler(const df::Event *p_e) {
 
 // Network
 void Client::network(const df::EventNetwork *p_network_event) {
-    std::string type, data, sprite_name;
+    std::string type, data;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     df::WorldManager &world_manager = df::WorldManager::getInstance();
     std::cout << p_network_event->line << std::endl;
@@ -190,13 +196,16 @@ void Client::network(const df::EventNetwork *p_network_event) {
             std::string p = df::match(data.c_str(), "p");
             thepoints->setValue(thepoints->getValue()+atoi(p.c_str()));
         }
-
-
-         //std::cout << "the points are " << df::toString(thepoints->getValue()) << std::endl;
     }
+    else if(memcmp(p_network_event->line, "DELETE", 6))
+    {
+        data = (p_network_event->line+7);
+        if(memcmp(p_network_event->line, "DELETEH", 7) == 0)
+        {
+            world_manager.markForDelete(this);
+        }
 
-
-
+    }
 }
 
 // Take appropriate action according to mouse action.
@@ -294,6 +303,7 @@ void Client::step() {
         int msize, linecnt;
         linecnt = 0;
 
+        //build local Hero string
         if(syncHalp->determineObChange(this, &messageStatus))
         {
             this->serialize();
@@ -312,10 +322,11 @@ void Client::step() {
             os << temp;
             herostr = os.str();
             linecnt++;
-            //message = "01" + herostr;
+
            // std::cout << herostr << std::endl;
-            //network_manager.send2((void *)message.c_str(), message.length());
         }
+
+        //Build Bullet string
          for (int i=0; i<bullets2.size(); i++)
         {
             std::ostringstream os3;
@@ -337,6 +348,8 @@ void Client::step() {
         }
         bullets2tr = bbs.str();
         bullets2.erase(bullets2.begin(), bullets2.end());
+
+        //send out everything
         if(linecnt > 0)
         {
             std::string linecnt2;

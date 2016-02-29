@@ -94,6 +94,19 @@ Host::Host(Settings* info) {
 
 Host::~Host() {
 
+    std::string tempMessage, message;
+    df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+    df::WorldManager &world_manager = df::WorldManager::getInstance();
+
+    //Send out ship distruction message
+    tempMessage = "DELETEH,";
+    message = "010" + df::toString((int)tempMessage.length()) + tempMessage;
+    network_manager.send2((void *)message.c_str(), message.length());
+    network_manager.shutDown();
+
+    world_manager.markForDelete(otherPlayer);
+    world_manager.markForDelete(thepoints);
+
 
     // Create GameOver object.
     GameOver *p_go = new GameOver;
@@ -276,15 +289,13 @@ void Host::step() {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
 
     if(network_manager.isConnected())
-    {       
-        //Local ship
-        //std::string message = "0307SEVEN7705FIVES10asdfghjkl";
+    {
          std::string herostr, saucerstr, bulletstr, pointsstr, message, messageStatus;
          std::ostringstream os, ss, bs, bbs;
          int msize, linecnt;
          linecnt = 0;
-        //network_manager.send2((void*)message.c_str(), message.length()+1);
 
+        //build local Hero string
         if(syncHalp->determineObChange(this, &messageStatus))
         {
             this->serialize();
@@ -302,11 +313,11 @@ void Host::step() {
             }
             os << temp;
             herostr = os.str();
-            linecnt++;
-            //message = "01" + herostr;
-           // std::cout << herostr << std::endl;
-            //network_manager.send2((void *)message.c_str(), message.length());
+            linecnt++;           
+           // std::cout << herostr << std::endl;            
         }
+
+        //Build Saucer string
         for (int i=0; i<saucers.size(); i++)
         {
             std::ostringstream os2;
@@ -314,8 +325,7 @@ void Host::step() {
             {
                 saucers[i]->serialize();
                 os2.seekp(0);
-                os2 << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y:" << saucers[i]->getPosition().getY() << ",";
-                std::cout << "os2 is " << os2.str() << std::endl;
+                os2 << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y:" << saucers[i]->getPosition().getY() << ",";               
                 const std::string &temp = os2.str();
                 msize = temp.length();
                 os2.seekp(0);
@@ -329,6 +339,7 @@ void Host::step() {
         saucerstr = ss.str();
         saucers.erase(saucers.begin(), saucers.end());
 
+        //Build Bullet string
         for (int i=0; i<bullets.size(); i++)
         {
             std::ostringstream os3;
@@ -337,7 +348,6 @@ void Host::step() {
                 bullets[i]->serialize();
                 os3.seekp(0);
                 os3 << messageStatus << ",id:" << bullets[i]->getId() << ",x:"  << bullets[i]->getPosition().getX() << ",y:" << bullets[i]->getPosition().getY() << ",";
-                std::cout << "os2 is " << os3.str() << std::endl;
                 const std::string &temp = os3.str();
                 msize = temp.length();
                 os3.seekp(0);
@@ -351,15 +361,17 @@ void Host::step() {
         bulletstr = bbs.str();
         bullets.erase(bullets.begin(), bullets.end());
 
+        //Build score string
         if(thepoints->scoreUpdate > 0)
         {
             pointsstr = "UPDATEP,p:"+ df::toString(thepoints->scoreUpdate) + ",";
             pointsstr = df::toString((int)pointsstr.length()) + pointsstr;
             thepoints->scoreUpdate = 0;
             linecnt++;
-            std::cout << "points: "<< pointsstr << std::endl;
-
+           // std::cout << "points: "<< pointsstr << std::endl;
         }
+
+        //send out everything
         if(linecnt > 0)
         {
             std::string linecnt2;

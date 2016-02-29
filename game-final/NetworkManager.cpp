@@ -195,5 +195,9 @@ bool NetworkManager::isConnected() const
     else
         return false;
 }
-void NetworkManager::shutDown(){}
+void NetworkManager::shutDown()
+{
+    close(sock);
+    close(betterSock);
+}
 
