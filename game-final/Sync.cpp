@@ -21,6 +21,14 @@ bool Sync::determineObChange(df::Object* anobject, std::string* messageStatus)
             return true;            
         }
     }
+    else if(anobject->getType() == "Saucer")
+    {
+        if(anobject->isModified(df::ID))
+        {
+            *messageStatus = "NEW";
+            return true;
+        }
+    }
     return false;
 }
 
