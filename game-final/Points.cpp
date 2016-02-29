@@ -26,15 +26,18 @@ Points::Points(int type) {
 // Return 0 if ignored, else 1.
 int Points::eventHandler(const df::Event *p_e) {
 int first = getValue();
+
+if(type == 0) //only host updates based on shots
+{
   // Parent handles event if score update.
-  if (df::ViewObject::eventHandler(p_e)) {
-      if(type == 0)
-      {
-          if(getValue() == (first + 10))
+  if (df::ViewObject::eventHandler(p_e))
+  {
+
+          //if(getValue() == (first + 10))
               scoreUpdate += 10;
-      }
-    return 1;
   }
+    return 1;
+}
 
   // If step, increment score every second (30 steps).
   if (p_e->getType() == df::STEP_EVENT) {

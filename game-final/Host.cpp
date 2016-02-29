@@ -353,7 +353,7 @@ void Host::step() {
 
         if(thepoints->scoreUpdate > 0)
         {
-            pointsstr = "UPDATEP,p:"+ df::toString(thepoints->getValue()) + ",";
+            pointsstr = "UPDATEP,p:"+ df::toString(thepoints->scoreUpdate) + ",";
             pointsstr = df::toString((int)pointsstr.length()) + pointsstr;
             thepoints->scoreUpdate = 0;
             linecnt++;
