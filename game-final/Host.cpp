@@ -293,10 +293,9 @@ void Host::step() {
             os << messageStatus << ",pos-x:" << getPosition().getX() << ",pos-y:"  << getPosition().getY() << ",";
             const std::string &temp = os.str();
             msize = temp.length();
+            os.seekp(0);
             if(msize < 10)
             {
-
-                os.seekp(0);
                 os << "0" << msize;
             }
             else
