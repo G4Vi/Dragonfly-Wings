@@ -86,7 +86,7 @@ Host::Host(Settings* info) {
         saucers.push_back(new Saucer);
     }
 
-     thepoints = new Points;		                     // Points display.
+     thepoints = new Points(0);		                     // Points display.
 
 
 

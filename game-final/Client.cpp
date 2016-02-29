@@ -79,7 +79,7 @@ Client::Client(Settings* info) {
     syncHalp = new Sync;
     network_manager.startUp(info);
 
-    new Points;
+    thepoints = new Points(1);
 
 }
 

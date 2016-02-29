@@ -11,7 +11,7 @@
 // Game includes.
 #include "Points.h"
 
-Points::Points() {
+Points::Points(int type) {
   setLocation(df::TOP_RIGHT);
   setViewString(POINTS_STRING);
   setColor(df::YELLOW);
@@ -19,7 +19,7 @@ Points::Points() {
   registerInterest(df::STEP_EVENT);
   scoreUpdate = 0;
   setType("Points");
-
+  this->type = type;
 }
 
 // Handle event.
@@ -28,6 +28,10 @@ int Points::eventHandler(const df::Event *p_e) {
 
   // Parent handles event if score update.
   if (df::ViewObject::eventHandler(p_e)) {
+      if(type == 0)
+      {
+          scoreUpdate += 10;
+      }
     return 1;
   }
 

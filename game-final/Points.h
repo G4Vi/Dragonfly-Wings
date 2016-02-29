@@ -10,8 +10,10 @@
 
 class Points : public df::ViewObject {
 
+ private:
+ int type;
  public:
-  Points();
+  Points(int type);
   int eventHandler(const df::Event *p_e);
   int scoreUpdate;
 };
