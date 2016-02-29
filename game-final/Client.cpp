@@ -326,7 +326,7 @@ void Client::step() {
             }
         }
         bullets2tr = bbs.str();
-        bullets2tr.erase(bullets2tr.begin(), bullets2tr.end());
+        bullets2.erase(bullets2.begin(), bullets2.end());
         if(linecnt > 0)
         {
             std::string linecnt2;
