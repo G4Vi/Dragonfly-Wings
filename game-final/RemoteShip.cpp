@@ -55,6 +55,7 @@ RemoteShip::RemoteShip() {
   
 RemoteShip::~RemoteShip() {
 
+    /*
   // Create GameOver object.
   GameOver *p_go = new GameOver;
   
@@ -68,6 +69,7 @@ RemoteShip::~RemoteShip() {
       p_explosion -> setPosition(temp_pos);
     }
   }
+  */
 }
  
 // Handle event.
