@@ -54,6 +54,10 @@ int NetworkManager::getServSock()
         exit(1);
     }
 
+    // set SO_REUSEADDR on a socket to true (1):
+    int optval = 1;
+    setsockopt(tcp_socket, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof optval);
+
     if(bind(tcp_socket, results->ai_addr, results->ai_addrlen) < 0)
     {
         printf("Socket binding error\n");
