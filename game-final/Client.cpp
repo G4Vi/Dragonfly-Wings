@@ -317,7 +317,7 @@ void Client::step() {
                 os3 << temp;
                 bbs << os3.str();
                 linecnt++;
-                //std::cout << "bullet: "<< os2.str() << std::endl;
+                std::cout << "bullet: "<< os3.str() << std::endl;
             }
         }
         bullets2tr = bbs.str();
