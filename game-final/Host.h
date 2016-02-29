@@ -12,6 +12,7 @@
 #include "Sync.h"
 #include "RemoteShip.h"
 #include "Saucer.h"
+#include "Points.h"
 
 #include <vector>
 
@@ -23,6 +24,7 @@ class Host : public df::Object {
   Sync* syncHalp;
   RemoteShip* otherPlayer;
   std::vector<Saucer*> saucers;
+  Points* thepoints;
 
   int fire_slowdown;
   int fire_countdown;

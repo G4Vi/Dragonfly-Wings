@@ -17,6 +17,7 @@
 #include "Explosion.h"
 #include "GameOver.h"
 #include "Host.h"
+//#include "Points.h"
 
 
 // Networking
@@ -85,6 +86,8 @@ Host::Host(Settings* info) {
         saucers.push_back(new Saucer);
     }
 
+     thepoints = new Points;		                     // Points display.
+
 
 
 }
@@ -146,7 +149,7 @@ void Host::network(const df::EventNetwork *p_network_event) {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
      df::WorldManager &world_manager = df::WorldManager::getInstance();
 
-     std::cout << p_network_event->line << std::endl;
+     std::cout << "line is " << p_network_event->line << std::endl;
 
      if(memcmp(p_network_event->line, "NEW", 3)==0)
      {
@@ -159,17 +162,16 @@ void Host::network(const df::EventNetwork *p_network_event) {
              df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
              world_manager.moveObject(otherPlayer, new_pos);
          }
-     }
-     else if(memcmp(p_network_event->line, "NEWB", 4) == 0)
-     {
-         std::string x = df::match(data.c_str(), "x");
-         std::string y = df::match(data.c_str(), "y");
-         df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-         Bullet* ab = new Bullet(new_pos);
-         std::string id = df::match(data.c_str(), "id");
-         ab->setId(atoi(id.c_str()));
-
-     }
+         else if(memcmp(p_network_event->line, "NEWB", 4) == 0)
+         {
+             std::string x = df::match(data.c_str(), "x");
+             std::string y = df::match(data.c_str(), "y");
+             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+             Bullet* ab = new Bullet(new_pos);
+             std::string id = df::match(data.c_str(), "id");
+             ab->setId(atoi(id.c_str()));
+         }
+     }     
      else if(memcmp(p_network_event->line, "UPDATE", 6)==0)
      {
          data = (p_network_event->line+7);
@@ -277,7 +279,7 @@ void Host::step() {
     {       
         //Local ship
         //std::string message = "0307SEVEN7705FIVES10asdfghjkl";
-         std::string herostr, saucerstr, bulletstr, message, messageStatus;
+         std::string herostr, saucerstr, bulletstr, pointsstr, message, messageStatus;
          std::ostringstream os, ss, bs, bbs;
          int msize, linecnt;
          linecnt = 0;
@@ -325,8 +327,8 @@ void Host::step() {
             }
         }
         saucerstr = ss.str();
-
         saucers.erase(saucers.begin(), saucers.end());
+
         for (int i=0; i<bullets.size(); i++)
         {
             std::ostringstream os3;
@@ -348,6 +350,16 @@ void Host::step() {
         }
         bulletstr = bbs.str();
         bullets.erase(bullets.begin(), bullets.end());
+
+        if(thepoints->scoreUpdate > 0)
+        {
+            pointsstr = "UPDATEP,p:"+ df::toString(thepoints->getValue()) + ",";
+            pointsstr = df::toString((int)pointsstr.length()) + pointsstr;
+            thepoints->scoreUpdate = 0;
+            linecnt++;
+            std::cout << "points: "<< pointsstr << std::endl;
+
+        }
         if(linecnt > 0)
         {
             std::string linecnt2;
@@ -357,7 +369,7 @@ void Host::step() {
             else
                 bs << linecnt;
             linecnt2 = bs.str();
-            message = linecnt2 + herostr + saucerstr + bulletstr;
+            message = linecnt2 + herostr + saucerstr + bulletstr + pointsstr;
             //std::cout << message << std::endl;
             network_manager.send2((void *)message.c_str(), message.length());
         }

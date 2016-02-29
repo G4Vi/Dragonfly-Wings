@@ -79,6 +79,8 @@ Client::Client(Settings* info) {
     syncHalp = new Sync;
     network_manager.startUp(info);
 
+    new Points;
+
 }
 
 Client::~Client() {
@@ -183,6 +185,14 @@ void Client::network(const df::EventNetwork *p_network_event) {
             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
             world_manager.moveObject(otherPlayer, new_pos);
         }
+        else if(memcmp(p_network_event->line, "UPDATEP", 7) == 0)
+        {
+            std::string p = df::match(data.c_str(), "p");
+            thepoints->setValue(thepoints->getValue()+atoi(p.c_str()));
+        }
+
+
+         //std::cout << "the points are " << df::toString(thepoints->getValue()) << std::endl;
     }
 
 

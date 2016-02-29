@@ -36,7 +36,7 @@ bool Sync::determineObChange(df::Object* anobject, std::string* messageStatus)
             *messageStatus = "NEWB";
             return true;
         }
-    }
+    }  
     return false;
 }
 

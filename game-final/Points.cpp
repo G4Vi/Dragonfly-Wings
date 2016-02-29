@@ -17,6 +17,9 @@ Points::Points() {
   setColor(df::YELLOW);
   // Need to update score each second, so count "step" events.
   registerInterest(df::STEP_EVENT);
+  scoreUpdate = 0;
+  setType("Points");
+
 }
 
 // Handle event.
