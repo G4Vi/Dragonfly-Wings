@@ -134,6 +134,7 @@ int Host::eventHandler(const df::Event *p_e) {
 void Host::network(const df::EventNetwork *p_network_event) {
     std::string type, data, sprite_name;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+     df::WorldManager &world_manager = df::WorldManager::getInstance();
     std::cout<< "Server is here" << std::endl;
     memset(packet, 0, 4096);
     int i = network_manager.receive(packet, 4096, false);
@@ -148,7 +149,14 @@ void Host::network(const df::EventNetwork *p_network_event) {
             {
                 data = (packet+3);
                 this->otherPlayer = new RemoteShip;
-                syncHalp->process(otherPlayer, data);
+
+                if(otherPlayer->getType() == "RemoteShip")
+                {
+                    std::string x = df::match(data.c_str(), "pos-x");
+                    std::string y = df::match(data.c_str(), "pos-y");
+                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+                    world_manager.moveObject(otherPlayer, new_pos);
+                }
             }
         }
         else if(memcmp(packet, "UPDATE", 6)==0)
@@ -157,7 +165,13 @@ void Host::network(const df::EventNetwork *p_network_event) {
             if(sprite_name == "ship")
             {
                 data = (packet+6);
-                syncHalp->process(otherPlayer, data);
+                if(otherPlayer->getType() == "RemoteShip")
+                {
+                    std::string x = df::match(data.c_str(), "pos-x");
+                    std::string y = df::match(data.c_str(), "pos-y");
+                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+                    world_manager.moveObject(otherPlayer, new_pos);
+                }
             }
         }
         else
@@ -258,10 +272,10 @@ void Host::step() {
     {
         std::string messageStatus;
         //Local ship
-        if(syncHalp->determineObChange(this, &messageStatus))
+        /*if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
-        }
+        }*/
         df::WorldManager &world_manager = df::WorldManager::getInstance();
         df::ObjectList all_objects = world_manager.getAllObjects();
         df::ObjectListIterator i(&all_objects);
