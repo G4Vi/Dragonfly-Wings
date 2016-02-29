@@ -23,6 +23,7 @@
 #include "Sentry.h"
 #include "NetworkManager.h"
 #include <sstream>
+#include <cstdlib>
 #include <iostream> //will remove
 char packet[4096];
 
@@ -37,7 +38,7 @@ Host::Host(Settings* info) {
         log_manager.writeLog("Host::Host(): Warning! Sprite '%s' not found", 
                 "ship");
         } else {
-        //p_temp_sprite->setColor(df::RED);
+        p_temp_sprite->setColor(df::RED);
         setSprite(p_temp_sprite);        
         setSpriteSlowdown(3);  // 1/3 speed animation.
         setTransparency();	   // Transparent sprite.
@@ -259,13 +260,13 @@ void Host::step() {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
 
     if(network_manager.isConnected())
-    {
-        std::string messageStatus;
+    {       
         //Local ship
         //std::string message = "0307SEVEN7705FIVES10asdfghjkl";
-         std::string message;
-         std::ostringstream os;
-         int msize;
+         std::string herostr, saucerstr, message, messageStatus;
+         std::ostringstream os, ss;
+         int msize, linecnt;
+         linecnt = 0;
         //network_manager.send2((void*)message.c_str(), message.length()+1);
 
         if(syncHalp->determineObChange(this, &messageStatus))
@@ -284,25 +285,43 @@ void Host::step() {
                 os << msize;
             }
             os << temp;
-            message = os.str();
-            message = "01" + message;
-            std::cout << message << std::endl;
-            std::cout << "done" << std::endl;
-            network_manager.send2((void *)message.c_str(), message.length());
+            herostr = os.str();
+            linecnt++;
+            //message = "01" + herostr;
+           // std::cout << herostr << std::endl;
+            //network_manager.send2((void *)message.c_str(), message.length());
         }
-
-        /*if(syncHalp->determineObChange(this, &messageStatus))
-        {
-            syncHalp->sendObject(this, messageStatus);
-        }*/
-
-        /*for (int i=0; i<saucers.size(); i++)
+        for (int i=0; i<saucers.size(); i++)
         {
             if(syncHalp->determineObChange(saucers[i], &messageStatus))
             {
-                syncHalp->sendObject(saucers[i], messageStatus);
+                saucers[i]->serialize();
+                os.seekp(0);
+                os << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << "y," << saucers[i]->getPosition().getY() << ",";
+                const std::string &temp = os.str();
+                msize = temp.length();
+                os.seekp(0);
+                os << msize;
+                os << temp;
+                ss << os.str();
             }
-        }*/
+        }
+        saucerstr = ss.str();
+        if(linecnt > 0)
+        {
+            std::string linecnt2;
+            os.seekp(0);
+            if(linecnt < 10)
+                os << "0" << linecnt;
+            else
+                os << "0" << linecnt;
+            linecnt2 = os.str();
+            message = linecnt2 + herostr + saucerstr;
+            std::cout << message << std::endl;
+            network_manager.send2((void *)message.c_str(), message.length());
+        }
+
+
 
         /*df::WorldManager &world_manager = df::WorldManager::getInstance();
         df::ObjectList all_objects = world_manager.getAllObjects();

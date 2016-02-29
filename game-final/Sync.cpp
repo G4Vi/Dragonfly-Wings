@@ -25,7 +25,7 @@ bool Sync::determineObChange(df::Object* anobject, std::string* messageStatus)
     {
         if(anobject->isModified(df::ID))
         {
-            *messageStatus = "NEW";
+            *messageStatus = "NEWS";
             return true;
         }
     }
