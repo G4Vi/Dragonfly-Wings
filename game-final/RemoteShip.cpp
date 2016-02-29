@@ -27,6 +27,7 @@ RemoteShip::RemoteShip() {
     log_manager.writeLog("RemoteShip::RemoteShip(): Warning! Sprite '%s' not found", 
 			 "ship");
   } else {
+    p_temp_sprite->setColor(df::RED);
     setSprite(p_temp_sprite);
     setSpriteSlowdown(3);  // 1/3 speed animation.
     setTransparency();	   // Transparent sprite.
@@ -38,7 +39,7 @@ RemoteShip::RemoteShip() {
   registerInterest(df::STEP_EVENT);
 
   // Set object type.
-  setType("RemoteShip");
+  setType("Hero");
 
   // Set starting location.
   df::WorldManager &world_manager = df::WorldManager::getInstance();
