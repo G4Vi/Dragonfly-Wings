@@ -134,6 +134,8 @@ int Client::eventHandler(const df::Event *p_e) {
 void Client::network(const df::EventNetwork *p_network_event) {
     std::string type, data, sprite_name;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+    df::WorldManager &world_manager = df::WorldManager::getInstance();
+
     std::cout<< "Client is here" << std::endl;
     memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);
@@ -148,7 +150,14 @@ void Client::network(const df::EventNetwork *p_network_event) {
             {
                 data = (cpacket+3);
                 this->otherPlayer = new RemoteShip;
-                syncHalp->process(otherPlayer, data);
+
+                if(otherPlayer->getType() == "RemoteShip")
+                {
+                    std::string x = df::match(data.c_str(), "pos-x");
+                    std::string y = df::match(data.c_str(), "pos-y");
+                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+                    world_manager.moveObject(otherPlayer, new_pos);
+                }
             }
             if(type == "Saucer")
             {
@@ -163,7 +172,13 @@ void Client::network(const df::EventNetwork *p_network_event) {
             if(sprite_name == "ship")
             {
                 data = (cpacket+6);
-                syncHalp->process(otherPlayer, data);
+                if(otherPlayer->getType() == "RemoteShip")
+                {
+                    std::string x = df::match(data.c_str(), "pos-x");
+                    std::string y = df::match(data.c_str(), "pos-y");
+                    df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+                    world_manager.moveObject(otherPlayer, new_pos);
+                }
             }
         }
         else
