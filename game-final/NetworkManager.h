@@ -73,7 +73,9 @@ class NetworkManager : public df::Manager {
 
   // Check if network data.                                                        
   // Return amount of data (0 if no data), -1 if not connected or error.           
-  int isData();   
+  int isData();
+  int getMessageCount();
+  int getMessageLength();  
 };
 
 } // end of namespace df                                                           

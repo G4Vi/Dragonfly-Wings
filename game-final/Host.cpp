@@ -280,18 +280,20 @@ void Host::step() {
     {
         std::string messageStatus;
         //Local ship
-        if(syncHalp->determineObChange(this, &messageStatus))
+        std::string message = "0307SEVEN7705FIVES10asdfghjkl";
+        network_manager.send2((void*)message.c_str(), message.length()+1);
+        /*if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
-        }
+        }*/
 
-        for (int i=0; i<saucers.size(); i++)
+        /*for (int i=0; i<saucers.size(); i++)
         {
             if(syncHalp->determineObChange(saucers[i], &messageStatus))
             {
                 syncHalp->sendObject(saucers[i], messageStatus);
             }
-        }
+        }*/
 
         /*df::WorldManager &world_manager = df::WorldManager::getInstance();
         df::ObjectList all_objects = world_manager.getAllObjects();

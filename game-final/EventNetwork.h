@@ -28,6 +28,8 @@ class EventNetwork : public Event {
 
   // Get number of bytes available.                                                
   int getBytes() const;
+
+  char line[30];
 };
 
 } // end of namespace df                                                           

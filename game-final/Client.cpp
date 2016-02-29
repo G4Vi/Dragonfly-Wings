@@ -134,9 +134,10 @@ void Client::network(const df::EventNetwork *p_network_event) {
     std::string type, data, sprite_name;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     df::WorldManager &world_manager = df::WorldManager::getInstance();
+    std::cout << p_network_event->line << std::endl;
 
 
-    memset(cpacket, 0, 4096);
+    /*memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);
     if(i > 0)
     {       
@@ -189,7 +190,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
            data = cpacket;
         }
         std::cout<< data << std::endl;
-    }    
+    }*/
 }
 
 // Take appropriate action according to mouse action.

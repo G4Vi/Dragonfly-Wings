@@ -30,10 +30,20 @@ int Sentry::eventHandler(const df::Event *p_e) {
 void Sentry::doStep()
 {
     EventNetwork EN;
+    int cnt, i, length;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-    while(network_manager.isData()> 0)
-    {        
-        network_manager.onEvent(&EN);
+    if(network_manager.isData()> 0)
+    {
+        memset(EN.line, 0, 30);
+        cnt = network_manager.getMessageCount();
+        std::cout<< "Message count is " << cnt << std::endl;
+        for(i = 0; i < cnt; i ++)
+        {
+            length = network_manager.getMessageLength();
+            network_manager.receive(EN.line, length, false);
+            EN.line[29] = '\0';
+            network_manager.onEvent(&EN);
+        }
     }
 }                                                                                                            
                                                                                                              

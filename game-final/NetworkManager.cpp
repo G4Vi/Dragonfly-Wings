@@ -107,8 +107,24 @@ int NetworkManager::receive(void* buffer, int nbytes, bool peak)
 
 int NetworkManager::isData() 
 {
-    char tempbuf[60];
-    return  receive(tempbuf, 60, true);
+    char tempbuf[5];
+    return  receive(tempbuf, 5, true);
+}
+
+int NetworkManager::getMessageCount()
+{
+    char tinybuf[3];
+    recv(betterSock, tinybuf,2, MSG_DONTWAIT);
+    tinybuf[3]='\0';
+    return atoi(tinybuf);
+}
+
+int NetworkManager::getMessageLength()
+{
+    char tinybuf[3];
+    recv(betterSock, tinybuf,2, MSG_DONTWAIT);
+    tinybuf[3]='\0';
+    return atoi(tinybuf);
 }
 
 int NetworkManager::getClientSock(void** results)
