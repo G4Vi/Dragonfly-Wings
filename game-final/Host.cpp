@@ -305,10 +305,12 @@ void Host::step() {
             }
             os << temp;
             message = os.str();
+            message = "01" + message;
+            std::cout << message << std::endl;
+            std::cout << "done" << std::endl;
+            network_manager.send2((void *)message.c_str(), message.length());
         }
-        message = "01" + message;
-        std::cout << message << std::endl;
-        network_manager.send2((void *)message.c_str(), message.length());
+
         /*if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
