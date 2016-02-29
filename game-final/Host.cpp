@@ -272,10 +272,10 @@ void Host::step() {
     {
         std::string messageStatus;
         //Local ship
-        /*if(syncHalp->determineObChange(this, &messageStatus))
+        if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
-        }*/
+        }
         df::WorldManager &world_manager = df::WorldManager::getInstance();
         df::ObjectList all_objects = world_manager.getAllObjects();
         df::ObjectListIterator i(&all_objects);
