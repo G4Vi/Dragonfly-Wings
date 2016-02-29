@@ -156,7 +156,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         {
             sprite_name = df::match(cpacket, "sprite_name");
             std::cout<< "sprite_name is " << type << std::endl;
-            if(type == "ship")
+            if(sprite_name == "ship")
             {
                 data = (cpacket+6);
                 syncHalp->process(otherPlayer, data);
