@@ -136,6 +136,19 @@ void Client::network(const df::EventNetwork *p_network_event) {
     df::WorldManager &world_manager = df::WorldManager::getInstance();
     std::cout << p_network_event->line << std::endl;
 
+    if(memcmp(cpacket, "NEW", 3)==0)
+    {
+        data = (cpacket+3);
+        if(memcmp(cpacket, "NEWH", 4) == 0)
+        {
+            otherPlayer = new RemoteShip;
+            std::string x = df::match(data.c_str(), "pos-x");
+            std::string y = df::match(data.c_str(), "pos-y");
+            df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+            world_manager.moveObject(otherPlayer, new_pos);
+        }
+    }
+
 
     /*memset(cpacket, 0, 4096);
     int i = network_manager.receive(cpacket, 4096, false);

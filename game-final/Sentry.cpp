@@ -41,6 +41,7 @@ void Sentry::doStep()
         {
             length = network_manager.getMessageLength();
             network_manager.receive(EN.line, length, false);
+            EN.line[length] = '\0';
             EN.line[29] = '\0';
             network_manager.onEvent(&EN);
         }

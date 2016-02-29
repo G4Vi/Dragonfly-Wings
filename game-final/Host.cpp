@@ -22,6 +22,7 @@
 // Networking
 #include "Sentry.h"
 #include "NetworkManager.h"
+#include <sstream>
 #include <iostream> //will remove
 char packet[4096];
 
@@ -280,8 +281,32 @@ void Host::step() {
     {
         std::string messageStatus;
         //Local ship
-        std::string message = "0307SEVEN7705FIVES10asdfghjkl";
-        network_manager.send2((void*)message.c_str(), message.length()+1);
+        //std::string message = "0307SEVEN7705FIVES10asdfghjkl";
+         std::string message;
+         std::ostringstream os;
+         int msize;
+        //network_manager.send2((void*)message.c_str(), message.length()+1);
+
+         os << ",";
+        if(syncHalp->determineObChange(this, &messageStatus))
+        {
+            os << messageStatus << "pos-x:" << getPosition().getX() << ",pos-y:"  << getPosition().getY() << ",";
+            msize = message.length();
+            const std::string &temp = os.str();
+            if(msize < 10)
+            {
+
+                os.seekp(0);
+                os << "0" << msize;
+            }
+            else
+            {
+                os << msize;
+            }
+            os << temp;
+            message = os.str();
+        }
+        std::cout << message << std::endl;
         /*if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
