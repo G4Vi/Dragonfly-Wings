@@ -26,7 +26,7 @@
 #include <cstdlib>
 #include <iostream> //will remove
 char packet[4096];
-
+std::vector<Bullet*> bullets;
 Host::Host(Settings* info) {
 
     // Link to "ship" sprite.
@@ -137,27 +137,7 @@ int Host::eventHandler(const df::Event *p_e) {
     }
 
     // If get here, have ignored this event.
-    return 0;       //Bullets
-    /* for(i=0; i <bullets.size(); i++)
-     {
-         std::ostringstream os3;
-         if(syncHalp->determineObChange(bullets[i], &messageStatus))
-         {
-             bullets[i]->serialize();
-             os3.seekp(0);
-             os3 << messageStatus << ",id:" << bullets[i]->getId() << ",x:"  << bullets[i]->getPosition().getX() << ",y:" << bullets[i]->getPosition().getY() << ",";
-             std::cout << "os3 is " << os3.str() << std::endl;
-             std::string temp = os3.str();
-             msize = temp.length();
-             os3.seekp(0);
-             os3 << msize;
-             os3 << temp;
-             bbs << os3.str();
-             linecnt++;
-             //std::cout << "bullet: "<< os3.str() << std::endl;
-         }
-     }
-     bulletstr = bbs.str(); */
+    return 0;
 }
 
 // Network
@@ -180,6 +160,16 @@ void Host::network(const df::EventNetwork *p_network_event) {
              world_manager.moveObject(otherPlayer, new_pos);
          }
      }
+     else if(memcmp(p_network_event->line, "NEWB", 4) == 0)
+     {
+         std::string x = df::match(data.c_str(), "x");
+         std::string y = df::match(data.c_str(), "y");
+         df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+         Bullet* ab = new Bullet(new_pos);
+         std::string id = df::match(data.c_str(), "id");
+         ab->setId(atoi(id.c_str()));
+
+     }
      else if(memcmp(p_network_event->line, "UPDATE", 6)==0)
      {
          data = (p_network_event->line+7);
@@ -192,27 +182,7 @@ void Host::network(const df::EventNetwork *p_network_event) {
          }
      }
 }
-//Bullets
-/* for(i=0; i <bullets.size(); i++)
-{
-    std::ostringstream os3;
-    if(syncHalp->determineObChange(bullets[i], &messageStatus))
-    {
-        bullets[i]->serialize();
-        os3.seekp(0);
-        os3 << messageStatus << ",id:" << bullets[i]->getId() << ",x:"  << bullets[i]->getPosition().getX() << ",y:" << bullets[i]->getPosition().getY() << ",";
-        std::cout << "os3 is " << os3.str() << std::endl;
-        std::string temp = os3.str();
-        msize = temp.length();
-        os3.seekp(0);
-        os3 << msize;
-        os3 << temp;
-        bbs << os3.str();
-        linecnt++;
-        //std::cout << "bullet: "<< os3.str() << std::endl;
-    }
-}
-bulletstr = bbs.str(); */
+
 // Take appropriate action according to mouse action.
 void Host::mouse(const df::EventMouse *p_mouse_event) {
 
@@ -278,6 +248,8 @@ void Host::fire(df::Position target) {
     p->setYVelocity((float) (target.getY() - getPosition().getY()) /
             (float) (target.getX() - getPosition().getX()));
 
+    bullets.push_back(p);
+
 
 
     // Play "fire" sound.
@@ -305,8 +277,8 @@ void Host::step() {
     {       
         //Local ship
         //std::string message = "0307SEVEN7705FIVES10asdfghjkl";
-         std::string herostr, saucerstr, message, messageStatus;
-         std::ostringstream os, ss, bs;
+         std::string herostr, saucerstr, bulletstr, message, messageStatus;
+         std::ostringstream os, ss, bs, bbs;
          int msize, linecnt;
          linecnt = 0;
         //network_manager.send2((void*)message.c_str(), message.length()+1);
@@ -353,6 +325,26 @@ void Host::step() {
             }
         }
         saucerstr = ss.str();
+        for (int i=0; i<bullets.size(); i++)
+        {
+            std::ostringstream os3;
+            if(syncHalp->determineObChange(bullets[i], &messageStatus))
+            {
+                bullets[i]->serialize();
+                os3.seekp(0);
+                os3 << messageStatus << ",id:" << bullets[i]->getId() << ",x:"  << bullets[i]->getPosition().getX() << ",y:" << bullets[i]->getPosition().getY() << ",";
+                std::cout << "os2 is " << os3.str() << std::endl;
+                std::string temp = os3.str();
+                msize = temp.length();
+                os3.seekp(0);
+                os3 << msize;
+                os3 << temp;
+                bbs << os3.str();
+                linecnt++;
+                //std::cout << "bullet: "<< os2.str() << std::endl;
+            }
+        }
+        bulletstr = bbs.str();
         if(linecnt > 0)
         {
             std::string linecnt2;
@@ -362,7 +354,7 @@ void Host::step() {
             else
                 bs << linecnt;
             linecnt2 = bs.str();
-            message = linecnt2 + herostr + saucerstr;
+            message = linecnt2 + herostr + saucerstr + bulletstr;
             //std::cout << message << std::endl;
             network_manager.send2((void *)message.c_str(), message.length());
         }

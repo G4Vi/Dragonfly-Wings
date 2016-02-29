@@ -26,6 +26,7 @@
 #include <sstream>
 #include <iostream> //will remove
 char cpacket[4096];
+std::vector<Bullet*> bullets2;
 
 Client::Client(Settings* info) {
 
@@ -60,7 +61,7 @@ Client::Client(Settings* info) {
     df::Position pos(7, (world_manager.getBoundary().getVertical()/2)+7);
     setPosition(pos);
 
-    // Create reticle for firing bullets.
+    // Create reticle for firing bullets2.
     p_reticle = new Reticle();
     p_reticle->draw();
 
@@ -162,13 +163,11 @@ void Client::network(const df::EventNetwork *p_network_event) {
         {
             std::string x = df::match(data.c_str(), "x");
             std::string y = df::match(data.c_str(), "y");
-            df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
-            //bullets.push_back(new Bullet(new_pos));
+            df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));           
             Bullet* ab = new Bullet(new_pos);
             std::string id = df::match(data.c_str(), "id");
             ab->setId(atoi(id.c_str()));
-            //bullets.back()->setId(atoi(id.c_str()));
-            //world_manager.moveObject(bullets.back(), new_pos);
+
         }
     }
     else if(memcmp(p_network_event->line, "UPDATE", 6)==0)
@@ -275,10 +274,10 @@ void Client::step() {
 
     if(network_manager.isConnected())
     {
-        std::string messageStatus;
-        std::string message;
-        std::ostringstream os;
-        int msize;
+        std::string herostr, bullets2tr, message, messageStatus;
+        std::ostringstream os, bs, bbs;
+        int msize, linecnt;
+        linecnt = 0;
 
         if(syncHalp->determineObChange(this, &messageStatus))
         {
@@ -296,10 +295,43 @@ void Client::step() {
                 os << msize;
             }
             os << temp;
-            message = os.str();
-            message = "01" + message;
-            std::cout << message << std::endl;
-            std::cout << "done" << std::endl;
+            herostr = os.str();
+            linecnt++;
+            //message = "01" + herostr;
+           // std::cout << herostr << std::endl;
+            //network_manager.send2((void *)message.c_str(), message.length());
+        }
+        for (int i=0; i<bullets2.size(); i++)
+        {
+            std::ostringstream os3;
+            if(syncHalp->determineObChange(bullets2[i], &messageStatus))
+            {
+                bullets2[i]->serialize();
+                os3.seekp(0);
+                os3 << messageStatus << ",id:" << bullets2[i]->getId() << ",x:"  << bullets2[i]->getPosition().getX() << ",y:" << bullets2[i]->getPosition().getY() << ",";
+                std::cout << "os2 is " << os3.str() << std::endl;
+                std::string temp = os3.str();
+                msize = temp.length();
+                os3.seekp(0);
+                os3 << msize;
+                os3 << temp;
+                bbs << os3.str();
+                linecnt++;
+                //std::cout << "bullet: "<< os2.str() << std::endl;
+            }
+        }
+        bullets2tr = bbs.str();
+        if(linecnt > 0)
+        {
+            std::string linecnt2;
+            bs.seekp(0);
+            if(linecnt < 10)
+                bs << "0" << linecnt;
+            else
+                bs << linecnt;
+            linecnt2 = bs.str();
+            message = linecnt2 + herostr + bullets2tr;
+            //std::cout << message << std::endl;
             network_manager.send2((void *)message.c_str(), message.length());
         }
 
