@@ -251,6 +251,8 @@ void Client::fire(df::Position target) {
     p->setYVelocity((float) (target.getY() - getPosition().getY()) /
             (float) (target.getX() - getPosition().getX()));
 
+    bullets2.push_back(p);
+
     // Play "fire" sound.
     df::Sound *p_sound = df::ResourceManager::getInstance().getSound("fire");
     p_sound->play();
@@ -317,7 +319,7 @@ void Client::step() {
                 os3 << temp;
                 bbs << os3.str();
                 linecnt++;
-                std::cout << "bullet: "<< os3.str() << std::endl;
+                //std::cout << "bullet: "<< os3.str() << std::endl;
             }
         }
         bullets2tr = bbs.str();
