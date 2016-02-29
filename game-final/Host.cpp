@@ -287,12 +287,12 @@ void Host::step() {
          int msize;
         //network_manager.send2((void*)message.c_str(), message.length()+1);
 
-         os << ",";
         if(syncHalp->determineObChange(this, &messageStatus))
         {
-            os << messageStatus << "pos-x:" << getPosition().getX() << ",pos-y:"  << getPosition().getY() << ",";
-            msize = message.length();
+            this->serialize();
+            os << messageStatus << ",pos-x:" << getPosition().getX() << ",pos-y:"  << getPosition().getY() << ",";
             const std::string &temp = os.str();
+            msize = temp.length();
             if(msize < 10)
             {
 
@@ -306,7 +306,9 @@ void Host::step() {
             os << temp;
             message = os.str();
         }
+        message = "01" + message;
         std::cout << message << std::endl;
+        network_manager.send2((void *)message.c_str(), message.length());
         /*if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
