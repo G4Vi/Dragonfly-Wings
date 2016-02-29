@@ -13,7 +13,6 @@
 
 
 // Game includes.
-#include "Bullet.h"
 #include "EventNuke.h"
 #include "Explosion.h"
 #include "GameOver.h"
@@ -157,6 +156,18 @@ void Client::network(const df::EventNetwork *p_network_event) {
             std::string y = df::match(data.c_str(), "y");
             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
             world_manager.moveObject(saucers.back(), new_pos);
+        }
+        else if(memcmp(p_network_event->line, "NEWB", 4) == 0)
+        {
+            std::string x = df::match(data.c_str(), "x");
+            std::string y = df::match(data.c_str(), "y");
+            df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
+            //bullets.push_back(new Bullet(new_pos));
+            Bullet* ab = new Bullet(new_pos);
+            std::string id = df::match(data.c_str(), "id");
+            ab->setId(atoi(id.c_str()));
+            //bullets.back()->setId(atoi(id.c_str()));
+            //world_manager.moveObject(bullets.back(), new_pos);
         }
     }
     else if(memcmp(p_network_event->line, "UPDATE", 6)==0)

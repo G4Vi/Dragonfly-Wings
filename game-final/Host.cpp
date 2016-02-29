@@ -12,7 +12,6 @@
 #include "WorldManager.h"
 
 // Game includes.
-#include "Bullet.h"
 #include "EventNuke.h"
 #include "Explosion.h"
 #include "GameOver.h"
@@ -238,6 +237,8 @@ void Host::fire(df::Position target) {
     p->setYVelocity((float) (target.getY() - getPosition().getY()) /
             (float) (target.getX() - getPosition().getX()));
 
+    bullets.push_back(p);
+
     // Play "fire" sound.
     df::Sound *p_sound = df::ResourceManager::getInstance().getSound("fire");
     p_sound->play();
@@ -261,14 +262,13 @@ void Host::step() {
 
     if(network_manager.isConnected())
     {       
-        //Local ship
-        //std::string message = "0307SEVEN7705FIVES10asdfghjkl";
-         std::string herostr, saucerstr, message, messageStatus;
-         std::ostringstream os, ss;
-         int msize, linecnt;
-         linecnt = 0;
-        //network_manager.send2((void*)message.c_str(), message.length()+1);
 
+         std::string herostr, saucerstr, bulletstr, message, messageStatus;
+         std::ostringstream os, ss, bs, bbs;
+         int msize, linecnt, i;
+         linecnt = 0;
+
+        //Local Hero
         if(syncHalp->determineObChange(this, &messageStatus))
         {
             this->serialize();
@@ -291,51 +291,65 @@ void Host::step() {
            // std::cout << herostr << std::endl;
             //network_manager.send2((void *)message.c_str(), message.length());
         }
-        for (int i=0; i<saucers.size(); i++)
+        //Saucers
+        for (i=0; i<saucers.size(); i++)
         {
+            std::ostringstream os2;
             if(syncHalp->determineObChange(saucers[i], &messageStatus))
             {
                 saucers[i]->serialize();
-                os.seekp(0);
-                os << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y:" << saucers[i]->getPosition().getY() << ",";
-                const std::string &temp = os.str();
+                os2.seekp(0);
+                os2 << messageStatus << ",id:" << saucers[i]->getId() << ",x:"  << saucers[i]->getPosition().getX() << ",y:" << saucers[i]->getPosition().getY() << ",";
+                std::cout << "os2 is " << os2.str() << std::endl;
+                std::string temp = os2.str();
                 msize = temp.length();
-                os.seekp(0);
-                os << msize;
-                os << temp;
-                ss << os.str();
+                os2.seekp(0);
+                os2 << msize;
+                os2 << temp;
+                ss << os2.str();
                 linecnt++;
-                std::cout << "saucer: "<< os.str() << std::endl;
+                //std::cout << "saucer: "<< os2.str() << std::endl;
             }
         }
         saucerstr = ss.str();
+        //Bullets
+        for(i=0; i <bullets.size(); i++)
+        {
+            std::ostringstream os3;
+            if(syncHalp->determineObChange(bullets[i], &messageStatus))
+            {
+                bullets[i]->serialize();
+                os3.seekp(0);
+                os3 << messageStatus << ",id:" << bullets[i]->getId() << ",x:"  << bullets[i]->getPosition().getX() << ",y:" << bullets[i]->getPosition().getY() << ",";
+                std::cout << "os3 is " << os3.str() << std::endl;
+                std::string temp = os3.str();
+                msize = temp.length();
+                os3.seekp(0);
+                os3 << msize;
+                os3 << temp;
+                bbs << os3.str();
+                linecnt++;
+                //std::cout << "bullet: "<< os3.str() << std::endl;
+            }
+        }
+        bulletstr = bbs.str();
+
+        //finally send it
         if(linecnt > 0)
         {
             std::string linecnt2;
-            os.seekp(0);
+            bs.seekp(0);
             if(linecnt < 10)
-                os << "0" << linecnt;
+                bs << "0" << linecnt;
             else
-                os << linecnt;
-            linecnt2 = os.str();
-            message = linecnt2 + herostr + saucerstr;
-            std::cout << message << std::endl;
+                bs << linecnt;
+            linecnt2 = bs.str();
+            message = linecnt2 + herostr + saucerstr + bulletstr;
+            //std::cout << message << std::endl;
             network_manager.send2((void *)message.c_str(), message.length());
         }
 
 
-
-        /*df::WorldManager &world_manager = df::WorldManager::getInstance();
-        df::ObjectList all_objects = world_manager.getAllObjects();
-        df::ObjectListIterator i(&all_objects);
-        for (i.first(); !i.isDone(); i.next())
-        {
-            if(syncHalp->determineObChange(i.currentObject(), &messageStatus))
-            {
-                 std::cout << i.currentObject()->getType() << std::endl;
-                 syncHalp->sendObject(i.currentObject(), messageStatus);
-            }
-        }*/
     }
 
 }

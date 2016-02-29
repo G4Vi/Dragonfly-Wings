@@ -29,6 +29,14 @@ bool Sync::determineObChange(df::Object* anobject, std::string* messageStatus)
             return true;
         }
     }
+    else if(anobject->getType() == "Bullet")
+    {
+        if(anobject->isModified(df::ID))
+        {
+            *messageStatus = "NEWB";
+            return true;
+        }
+    }
     return false;
 }
 

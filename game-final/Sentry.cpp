@@ -36,7 +36,7 @@ void Sentry::doStep()
     {
         memset(EN.line, 0, 30);
         cnt = network_manager.getMessageCount();
-        std::cout<< "Message count is " << cnt << std::endl;
+        //std::cout<< "Message count is " << cnt << std::endl;
         for(i = 0; i < cnt; i ++)
         {
             length = network_manager.getMessageLength();
