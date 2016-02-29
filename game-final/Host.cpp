@@ -36,7 +36,7 @@ Host::Host(Settings* info) {
         log_manager.writeLog("Host::Host(): Warning! Sprite '%s' not found", 
                 "ship");
         } else {
-        p_temp_sprite->setColor(df::RED);
+        //p_temp_sprite->setColor(df::RED);
         setSprite(p_temp_sprite);        
         setSpriteSlowdown(3);  // 1/3 speed animation.
         setTransparency();	   // Transparent sprite.
@@ -258,11 +258,11 @@ void Host::step() {
     {
         std::string messageStatus;
         //Local ship
-        if(syncHalp->determineObChange(this, &messageStatus))
+       /* if(syncHalp->determineObChange(this, &messageStatus))
         {
             syncHalp->sendObject(this, messageStatus);
-        }
-        /*df::WorldManager &world_manager = df::WorldManager::getInstance();
+        }*/
+        df::WorldManager &world_manager = df::WorldManager::getInstance();
         df::ObjectList all_objects = world_manager.getAllObjects();
         df::ObjectListIterator i(&all_objects);
         for (i.first(); !i.isDone(); i.next())
@@ -271,7 +271,7 @@ void Host::step() {
             {
                  syncHalp->sendObject(i.currentObject(), messageStatus);
             }
-        }*/
+        }
     }
 
 }

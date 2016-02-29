@@ -37,8 +37,7 @@ Client::Client(Settings* info) {
     if (!p_temp_sprite) {
         log_manager.writeLog("Client::Client(): Warning! Sprite '%s' not found",
                 "ship");
-    } else {
-        p_temp_sprite->setColor(df::RED);
+    } else {       
         setSprite(p_temp_sprite);
         setSpriteSlowdown(3);  // 1/3 speed animation.
         setTransparency();	   // Transparent sprite.
