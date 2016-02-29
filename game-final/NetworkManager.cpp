@@ -115,7 +115,7 @@ int NetworkManager::getMessageCount()
 {
     char tinybuf[3];
     recv(betterSock, tinybuf,2, MSG_DONTWAIT);
-    tinybuf[3]='\0';
+    tinybuf[2]='\0';
     return atoi(tinybuf);
 }
 
@@ -123,7 +123,7 @@ int NetworkManager::getMessageLength()
 {
     char tinybuf[3];
     recv(betterSock, tinybuf,2, MSG_DONTWAIT);
-    tinybuf[3]='\0';
+    tinybuf[2]='\0';
     return atoi(tinybuf);
 }
 
