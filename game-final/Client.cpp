@@ -82,7 +82,6 @@ Client::Client(Settings* info) {
 
     thepoints = new Points(1);
 
-    this->setId(rand()%20);
     //std::cout << "the points are " << df::toString(thepoints->getValue()) << std::endl;
 
 }

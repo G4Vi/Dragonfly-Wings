@@ -11,6 +11,7 @@
 // Game includes.
 #include "GameOver.h"
 #include "GameStart.h"
+#include "GameManager.h"
 
 GameOver::GameOver() {
 
@@ -51,11 +52,14 @@ GameOver::~GameOver() {
     df::Object *p_o = i.currentObject();
     if (p_o -> getType() == "Saucer" || p_o -> getType() == "ViewObject")
       world_manager.markForDelete(p_o);
+    /*
     if (p_o -> getType() == "GameStart") {
       p_o -> setActive(true);
       dynamic_cast <GameStart *> (p_o) -> playMusic();	// Resume start music.
-    }
+    }*/
   }
+  df::GameManager &game_manager = df::GameManager::getInstance();
+  game_manager.setGameOver();
 }
 
 // Handle event.
