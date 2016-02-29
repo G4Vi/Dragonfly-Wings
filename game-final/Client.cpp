@@ -26,7 +26,7 @@
 #include <sstream>
 #include <stdlib.h>		// for rand()
 #include <iostream> //will remove
-char cpacket[4096];
+int sExplode;
 std::vector<Bullet*> bullets2;
 
 Client::Client(Settings* info) {
@@ -89,14 +89,35 @@ Client::Client(Settings* info) {
 Client::~Client() {
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     df::WorldManager &world_manager = df::WorldManager::getInstance();
+    df::Position temp2;
 
     network_manager.shutDown();
+    if(sExplode == 1)
+    {
+        temp2 = otherPlayer->getPosition();
+    }
+    else
+    {
+        temp2 = this->getPosition();
+    }
+
     world_manager.markForDelete(otherPlayer);
     world_manager.markForDelete(thepoints);
 
     // Create GameOver object.
     GameOver *p_go = new GameOver;
 
+    // Make big explosion.
+    for (int i=-8; i<=8; i+=5) {
+        for (int j=-5; j<=5; j+=3) {
+            temp2.setX(temp2.getX() + i);
+            temp2.setY(temp2.getY() + j);
+            Explosion *p_explosion = new Explosion;
+            p_explosion -> setPosition(temp2);
+        }
+    }
+
+    /*
     // Make big explosion.
     for (int i=-8; i<=8; i+=5) {
         for (int j=-5; j<=5; j+=3) {
@@ -107,6 +128,7 @@ Client::~Client() {
             p_explosion -> setPosition(temp_pos);
         }
     }
+    */
 
     // Mark Reticle for deletion.
     df::WorldManager::getInstance().markForDelete(p_reticle);
@@ -205,6 +227,12 @@ void Client::network(const df::EventNetwork *p_network_event) {
         data = (p_network_event->line+7);
         if(memcmp(p_network_event->line, "DELETEH", 7) == 0)
         {
+            sExplode = 0;
+            world_manager.markForDelete(this);
+        }
+        if(memcmp(p_network_event->line, "DELETER", 7) == 0)
+        {
+            sExplode = 1;
             world_manager.markForDelete(this);
         }
 
