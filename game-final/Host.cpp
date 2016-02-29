@@ -131,12 +131,39 @@ int Host::eventHandler(const df::Event *p_e) {
 
 // Network
 void Host::network(const df::EventNetwork *p_network_event) {
+    std::string type, data, sprite_name;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+    std::cout<< "Server is here" << std::endl;
     memset(packet, 0, 4096);
-    if(network_manager.receive(packet, 4096, false)> 0)
+    int i = network_manager.receive(packet, 4096, false);
+    if(i > 0)
     {
         packet[4095] = '\0';
         std::cout<< packet << std::endl;
+        if(memcmp(packet, "NEW", 3)==0)
+        {
+            type = df::match(packet, "type");
+            if(type == "Hero")
+            {
+                data = (packet+3);
+                this->otherPlayer = new RemoteShip;
+                syncHalp->process(otherPlayer, data);
+            }
+        }
+        else if(memcmp(packet, "UPDATE", 6)==0)
+        {
+            sprite_name = df::match(packet, "sprite_name");
+            if(sprite_name == "ship")
+            {
+                data = (packet+6);
+                syncHalp->process(otherPlayer, data);
+            }
+        }
+        else
+        {
+           data = packet;
+        }
+        std::cout<< data << std::endl;
     }
 }
 

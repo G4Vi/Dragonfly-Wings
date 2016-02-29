@@ -10,6 +10,8 @@
 
 #include "Settings.h"
 #include "Sync.h"
+#include "RemoteShip.h"
+
 
 class Host : public df::Object {
 
@@ -17,6 +19,7 @@ class Host : public df::Object {
   Reticle *p_reticle;
   Settings* theSet;
   Sync* syncHalp;
+  RemoteShip* otherPlayer;
 
   int fire_slowdown;
   int fire_countdown;
