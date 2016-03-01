@@ -1,0 +1,30 @@
+//Project 4 Gavin Hayes gahayes@wpi.edu CS4513 C16
+DragonFly-Wings - Saucer_Shoot2
+To compile enter 'game-final' and type make.
+
+To run the Saucershoot2 ./game
+By default is runs as a host and asks for port number to listen on by stdin. -p  port can be specified 
+To run as a client, -c. -a ipAddress and -p port to specify host by commandline otherwise you will be asked by stdin
+
+Extra features:
+Gamestart, Gameover, multiple ways of starting, mapper.
+Gamestart: Client attempts connection on press of 'p' and host starts blocking once 'p' is pressed.
+Gameover: Gameover animation plays and then program exists.
+multiple ways of starting: As specified above, you can specify port and address on commandline or type it in via stdin.
+mapper: The idea for this was to provide a way to map out stars and Hero spawns. Isn't complete due to finals. in the mapper folder
+
+
+Code comments:
+Operation: Client connects to Host, Host creates a Hero and Saucers. Client creates Hero, recieves an Hero from Host and sends a Hero to host. Host recieves the hero.
+If Host or Client creates a bullet or is moved up with w and s, it is sent over to the other. Collision detecting is done on the host. Hero's cannot
+move through each other, but do no damage to each other because there shouldn't be friendly fire in a coop game. GameOver is triggered when either Hero dies. 
+
+Message protocol - Each step or at delete time a message is sent.
+A message consists of [2char number of submessages][2charsubmessagelength]Command,serialized-data,[2charsubmessagelength]COMMANDO,serialized-data, ...
+Example: 0104NEWH,  inorder to send a create hero message.
+Recieving messages goes as follow: recv numsubmessage, recv firstmessagelength, recv firstmessage send first event, recv secondmessagelength, recv secondmessage send secondevent ...
+network function processes all creating, updating, or deleteing messages.
+
+Most of the newly written code is in the bottom on the step functions for sending data and the network function in the client and host
+files. Ideally more would be in the sync class, but after fighting with namespace issues for a while it was fastest to have the "God"
+functions.
