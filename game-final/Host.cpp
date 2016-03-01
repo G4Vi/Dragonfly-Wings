@@ -170,6 +170,7 @@ void Host::network(const df::EventNetwork *p_network_event) {
          if(memcmp(p_network_event->line, "NEWH", 4) == 0)
          {
              otherPlayer = new RemoteShip;
+             otherPlayer->setType("Hero"); //So physics gets applied
              std::string x = df::match(data.c_str(), "x");
              std::string y = df::match(data.c_str(), "y");
              df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));

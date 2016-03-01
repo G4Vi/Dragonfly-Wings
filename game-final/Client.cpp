@@ -56,7 +56,7 @@ Client::Client(Settings* info) {
 
     // Set object type.
     //setType("Hero");
-    setType("RemoteShip");
+    setType("Client");
 
     // Set starting location.
     df::WorldManager &world_manager = df::WorldManager::getInstance();

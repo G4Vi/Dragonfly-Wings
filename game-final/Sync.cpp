@@ -8,7 +8,7 @@
 #include <iostream>
 bool Sync::determineObChange(df::Object* anobject, std::string* messageStatus)
 {
-    if(anobject->getType() ==  "Hero")
+    if((anobject->getType() ==  "Hero")||(anobject->getType() ==  "Client"))
     {
         if(anobject->isModified(df::ID))
         {
