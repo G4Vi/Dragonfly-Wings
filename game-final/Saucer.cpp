@@ -19,6 +19,8 @@
 #include "Points.h"
 #include "Saucer.h"
 
+#include "Host.h"
+
 Saucer::Saucer() {
   df::LogManager &log_manager = df::LogManager::getInstance();
   df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
@@ -97,8 +99,14 @@ void Saucer::out() {
   // Otherwise, move back to far right.
   moveToStart();
  
-  // Spawn new Saucer to make game get harder.
-  new Saucer;
+   //Spawn new Saucer to make game get harder.
+  if(host == 1)
+  {
+      Saucer* tempSaucer = new Saucer;
+      tempSaucer->host = 1;
+      Host* betterOwner = dynamic_cast <Host *> (owner);
+      betterOwner->saucers.push_back(tempSaucer);
+  }
 }
  
 // Called with Saucer collides.
@@ -122,8 +130,30 @@ void Saucer::hit(const df::EventCollision *p_collision_event) {
     p_sound->play();
 
     // Saucers appear stay around perpetually.
-    new Saucer;
+    if(host == 1)
+    {
+        Saucer* tempSaucer = new Saucer;
+        tempSaucer->host = 1;
+        Host* betterOwner = dynamic_cast <Host *> (owner);
+        betterOwner->saucers.push_back(tempSaucer);
+    }
   }
+
+  // If ClientBullet, create explosion play sound
+  if ((p_collision_event -> getObject1() -> getType() == "ClientBullet") ||
+      (p_collision_event -> getObject2() -> getType() == "ClientBullet")) {
+
+    // Create an explosion.
+    Explosion *p_explosion = new Explosion;
+    p_explosion -> setPosition(this -> getPosition());
+
+    // Play "explode" sound
+    df::Sound *p_sound = df::ResourceManager::getInstance().getSound("explode");
+    p_sound->play();
+
+    //don't create a saucer because that is host's job
+  }
+
 
   // If Hero, mark both objects for destruction.
   if (((p_collision_event -> getObject1() -> getType()) == "Hero") || 

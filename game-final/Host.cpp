@@ -83,7 +83,9 @@ Host::Host(Settings* info) {
     // Spawn some saucers to shoot.
     for (int i=0; i<16; i++)
     {
-        saucers.push_back(new Saucer);
+        Saucer* tempSaucer = new Saucer;
+        tempSaucer->host = 1;
+        saucers.push_back(tempSaucer);
     }
 
      thepoints = new Points(0);		                     // Points display.
