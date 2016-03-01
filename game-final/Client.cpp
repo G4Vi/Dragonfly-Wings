@@ -143,8 +143,10 @@ int Client::exp(Object* toexplode)
             temp_pos.setY(toexplode->getPosition().getY() + j);
             Explosion *p_explosion = new Explosion;
             p_explosion -> setPosition(temp_pos);
+             std::cout << "abc" << std::endl;
         }
     }
+     std::cout << "def" << std::endl;
 }
 
 // Handle event.
