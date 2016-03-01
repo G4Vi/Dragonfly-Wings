@@ -2,6 +2,7 @@
 //
 //
 #include "NetworkManager.h"
+#include "GameManager.h"
 #include <unistd.h>
 #include <netdb.h>
 #include <errno.h>
@@ -183,7 +184,11 @@ int NetworkManager::startUp(Settings* info)
         struct addrinfo* results;
         //the casting dance begins here in order to pass addrinfo without the compiler trying to put addrinfo into the df namespace
         betterSock = getClientSock((void **)&results);
-        connect2(results);
+        if(connect2(results) == -1)
+        {
+            df::GameManager &game_manager = df::GameManager::getInstance();
+            game_manager.setGameOver();
+        }
     }
     return 0;
 }

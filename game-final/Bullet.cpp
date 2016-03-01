@@ -67,7 +67,10 @@ void Bullet::out() {
 
 // If Bullet hits Saucer, mark Saucer and Bullet for deletion.
 void Bullet::hit(const df::EventCollision *p_collision_event) {
-  df::WorldManager &world_manager = df::WorldManager::getInstance();
+    if(this->getType() == "Bullet")
+    {
+      df::WorldManager &world_manager = df::WorldManager::getInstance();
   world_manager.markForDelete(p_collision_event->getObject1());
   world_manager.markForDelete(p_collision_event->getObject2());
+    }
 }
