@@ -38,8 +38,8 @@ Client::Client(Settings* info) {
     p_temp_sprite = resource_manager.getSprite("ship");
     if (!p_temp_sprite) {
         log_manager.writeLog("Client::Client(): Warning! Sprite '%s' not found",
-                "ship");
-    } else {       
+                             "ship");
+    } else {
         setSprite(p_temp_sprite);
         setSpriteSlowdown(3);  // 1/3 speed animation.
         setTransparency();	   // Transparent sprite.
@@ -77,7 +77,7 @@ Client::Client(Settings* info) {
     //Create a Network Manager and a Sentry to create network events
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
     network_manager.registerInterest(this, df::NETWORK_EVENT);
-    new df::Sentry;    
+    new df::Sentry;
     syncHalp = new Sync;
     network_manager.startUp(info);
 
@@ -149,10 +149,10 @@ int Client::eventHandler(const df::Event *p_e) {
         return 1;
     }
 
-    if (p_e->getType() == df::NETWORK_EVENT) { 
+    if (p_e->getType() == df::NETWORK_EVENT) {
         const df::EventNetwork *p_network_event = dynamic_cast <const df::EventNetwork *> (p_e);
         network(p_network_event);
-        return 1;                             
+        return 1;
     }
 
     // If get here, have ignored this event.
@@ -194,10 +194,11 @@ void Client::network(const df::EventNetwork *p_network_event) {
         {
             std::string x = df::match(data.c_str(), "x");
             std::string y = df::match(data.c_str(), "y");
-            df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));           
+            df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));
             Bullet* ab = new Bullet(new_pos);
             std::string id = df::match(data.c_str(), "id");
             ab->setId(atoi(id.c_str()));
+            ab->setType("ClientBullet");
 
         }
     }
@@ -220,7 +221,6 @@ void Client::network(const df::EventNetwork *p_network_event) {
     else if(memcmp(p_network_event->line, "DELETE", 6)==0)
     {
         data = (p_network_event->line+7);
-        std::cout << "sum type of del" << std::endl;
         if(memcmp(p_network_event->line, "DELETEH", 7) == 0)
         {
             sExplode = 0;
@@ -230,6 +230,19 @@ void Client::network(const df::EventNetwork *p_network_event) {
         {
             sExplode = 1;
             world_manager.markForDelete(this);
+        }
+        else if(memcmp(p_network_event->line, "DELETEB", 7) == 0)
+        {
+            std::string id = df::match(data.c_str(), "id");
+            df::ObjectList all_objects = world_manager.getAllObjects();
+            df::ObjectListIterator i(&all_objects);
+            for (i.first(); !i.isDone(); i.next()) {
+                if(i.currentObject()->getId() == atoi(id.c_str()))
+                {
+                    world_manager.markForDelete(i.currentObject());
+                    break;
+                }
+            }
         }
 
     }
@@ -248,24 +261,24 @@ void Client::mouse(const df::EventMouse *p_mouse_event) {
 void Client::kbd(const df::EventKeyboard *p_keyboard_event) {
 
     switch(p_keyboard_event->getKey()) {
-        case df::Keyboard::W:       // up
-            if (p_keyboard_event->getKeyboardAction() == df::KEY_DOWN)
-                move(-1);
-            break;
-        case df::Keyboard::S:       // down
-            if (p_keyboard_event->getKeyboardAction() == df::KEY_DOWN)
-                move(+1);
-            break;
-        case df::Keyboard::SPACE:   // nuke!
-            if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED)
-                nuke();
-            break;
-        case df::Keyboard::Q:        // quit
-            if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED) {
-                df::WorldManager &world_manager = df::WorldManager::getInstance();
-                world_manager.markForDelete(this);
-            }
-            break;
+    case df::Keyboard::W:       // up
+        if (p_keyboard_event->getKeyboardAction() == df::KEY_DOWN)
+            move(-1);
+        break;
+    case df::Keyboard::S:       // down
+        if (p_keyboard_event->getKeyboardAction() == df::KEY_DOWN)
+            move(+1);
+        break;
+    case df::Keyboard::SPACE:   // nuke!
+        if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED)
+            nuke();
+        break;
+    case df::Keyboard::Q:        // quit
+        if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED) {
+            df::WorldManager &world_manager = df::WorldManager::getInstance();
+            world_manager.markForDelete(this);
+        }
+        break;
     };
 
     return;
@@ -282,7 +295,7 @@ void Client::move(int dy) {
     // If stays on window, allow move.
     df::Position new_pos(getPosition().getX(), getPosition().getY() + dy);
     df::WorldManager &world_manager = df::WorldManager::getInstance();
-    if ((new_pos.getY() > 3) && 
+    if ((new_pos.getY() > 3) &&
             (new_pos.getY() < world_manager.getBoundary().getVertical()-1))
         world_manager.moveObject(this, new_pos);
 }
@@ -298,7 +311,7 @@ void Client::fire(df::Position target) {
     // Fire Bullet towards target.
     Bullet *p = new Bullet(getPosition());
     p->setYVelocity((float) (target.getY() - getPosition().getY()) /
-            (float) (target.getX() - getPosition().getX()));
+                    (float) (target.getX() - getPosition().getX()));
 
     p->setType("ClientBullet");
 
@@ -352,11 +365,11 @@ void Client::step() {
             herostr = os.str();
             linecnt++;
 
-           // std::cout << herostr << std::endl;
+            // std::cout << herostr << std::endl;
         }
 
         //Build Bullet string
-         for (int i=0; i<bullets2.size(); i++)
+        for (int i=0; i<bullets2.size(); i++)
         {
             std::ostringstream os3;
             if(syncHalp->determineObChange(bullets2[i], &messageStatus))
@@ -403,7 +416,7 @@ void Client::step() {
 void Client::nuke() {
 
     // Check if nukes left.
-    if (!nuke_count) 
+    if (!nuke_count)
         return;
     nuke_count--;
 

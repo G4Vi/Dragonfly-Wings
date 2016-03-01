@@ -168,6 +168,7 @@ int NetworkManager::connect2(void* connStuff)
     else
     {
         perror("connect");
+        std::cout << "Connection to host failed. exiting via gamemanager.setGameOver\n";
         return -1;
     }
 }
