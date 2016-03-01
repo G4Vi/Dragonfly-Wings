@@ -101,6 +101,7 @@ Client::~Client() {
     {
         temp2 = this;
     }
+    otherPlayer->killowner = 0;
 
     world_manager.markForDelete(otherPlayer);
     world_manager.markForDelete(thepoints);
@@ -170,7 +171,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         data = (p_network_event->line+4);
         if(memcmp(p_network_event->line, "NEWH", 4) == 0)
         {
-            otherPlayer = new RemoteShip;
+            otherPlayer = new RemoteShip(0);
             std::string x = df::match(data.c_str(), "x");
             std::string y = df::match(data.c_str(), "y");
             df::Position new_pos(atoi(x.c_str()), atoi(y.c_str()));

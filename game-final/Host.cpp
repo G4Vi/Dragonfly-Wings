@@ -87,6 +87,7 @@ Host::Host(Settings* info) {
     }
 
      thepoints = new Points(0);		                     // Points display.
+     killchild = 1;
 
 
 
@@ -94,9 +95,12 @@ Host::Host(Settings* info) {
 
 Host::~Host() {
 
+    df::WorldManager &world_manager = df::WorldManager::getInstance();
+    if(killchild == 1)
+    {
     std::string tempMessage, message;
     df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-    df::WorldManager &world_manager = df::WorldManager::getInstance();
+
 
     //Send out ship distruction message
     tempMessage = "DELETER,";
@@ -104,8 +108,9 @@ Host::~Host() {
     network_manager.send2((void *)message.c_str(), message.length());
     network_manager.shutDown();
 
+    otherPlayer->killowner = 0;
     world_manager.markForDelete(otherPlayer);
-    world_manager.markForDelete(thepoints);
+
 
 
     // Create GameOver object.
@@ -124,6 +129,8 @@ Host::~Host() {
 
     // Mark Reticle for deletion.
     df::WorldManager::getInstance().markForDelete(p_reticle);
+    }
+    world_manager.markForDelete(thepoints);
 }
 
 // Handle event.
@@ -169,7 +176,8 @@ void Host::network(const df::EventNetwork *p_network_event) {
          data = (p_network_event->line+4);
          if(memcmp(p_network_event->line, "NEWH", 4) == 0)
          {
-             otherPlayer = new RemoteShip;
+             otherPlayer = new RemoteShip(1);
+             otherPlayer->owner = this;
              otherPlayer->setType("Hero"); //So physics gets applied
              std::string x = df::match(data.c_str(), "x");
              std::string y = df::match(data.c_str(), "y");

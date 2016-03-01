@@ -15,8 +15,12 @@
 #include "Explosion.h"
 #include "GameOver.h"
 #include "RemoteShip.h"
+#include "NetworkManager.h"
+#include "Host.h"
 
-RemoteShip::RemoteShip() {
+//Host* betterOwner;
+
+RemoteShip::RemoteShip(int killowner) {
 
   // Link to "ship" sprite.
   df::ResourceManager &resource_manager = df::ResourceManager::getInstance();
@@ -51,10 +55,53 @@ RemoteShip::RemoteShip() {
   move_countdown = move_slowdown;
   fire_slowdown = 30;
   fire_countdown = fire_slowdown;
+
+  //allow destruct of owner
+  this->killowner = killowner;
+  //betterOwner = owner;
 }
+
+/*RemoteShip::setBetterOwner(Object* bo)
+{
+    betterOwner
+}*/
   
 RemoteShip::~RemoteShip() {
 
+    if(this->killowner == 1)
+    {
+        std::string tempMessage, message;
+        df::NetworkManager &network_manager = df::NetworkManager::getInstance();
+        df::WorldManager &world_manager = df::WorldManager::getInstance();
+
+        //Send out ship distruction message
+        tempMessage = "DELETEH,";
+        message = "010" + df::toString((int)tempMessage.length()) + tempMessage;
+        network_manager.send2((void *)message.c_str(), message.length());
+        network_manager.shutDown();
+
+        Host* betterOwner = dynamic_cast <Host *> (owner);
+
+        betterOwner->killchild = 0;
+        //world_manager.markForDelete(this->owner->thepoints);
+        world_manager.markForDelete(this->owner);
+
+
+
+        // Create GameOver object.
+        GameOver *p_go = new GameOver;
+
+        // Make big explosion.
+        for (int i=-8; i<=8; i+=5) {
+            for (int j=-5; j<=5; j+=3) {
+                df::Position temp_pos = this->getPosition();
+                temp_pos.setX(this->getPosition().getX() + i);
+                temp_pos.setY(this->getPosition().getY() + j);
+                Explosion *p_explosion = new Explosion;
+                p_explosion -> setPosition(temp_pos);
+            }
+        }
+    }
     /*
   // Create GameOver object.
   GameOver *p_go = new GameOver;

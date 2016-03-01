@@ -1,5 +1,0 @@
-20:56:13    0 ****************************************************
-20:56:13    0 ** Dragonfly version 4.1 **
-20:56:28  372 WorldManager::markForDelete(): unable to add object (nil) to deletions list
-20:56:33  523 ** Game stopped **
-20:56:33  523 ****************************************************

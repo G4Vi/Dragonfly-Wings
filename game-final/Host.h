@@ -1,6 +1,8 @@
 //
 // Host.h
 //
+#ifndef __HOST_H__ 
+#define __HOST_H__
 
 #include "EventKeyboard.h"
 #include "EventMouse.h"
@@ -25,7 +27,7 @@ class Host : public df::Object {
   RemoteShip* otherPlayer;
   std::vector<Saucer*> saucers;
   Points* thepoints;
-
+ 
   int fire_slowdown;
   int fire_countdown;
   int move_slowdown;
@@ -40,8 +42,9 @@ class Host : public df::Object {
   void nuke();
   
  public:
+  int killchild;
   Host(Settings* info);
   ~Host();
   int eventHandler(const df::Event *p_e);
 };
-
+#endif //HOST_H
