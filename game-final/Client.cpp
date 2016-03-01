@@ -247,6 +247,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         {
             sExplode = 1;
             exp(otherPlayer);
+            std::cout << "here" << std::endl;
             world_manager.markForDelete(this);
         }
 
