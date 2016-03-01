@@ -231,7 +231,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
             sExplode = 1;
             world_manager.markForDelete(this);
         }
-        else if(memcmp(p_network_event->line, "DELETEB", 7) == 0)
+        else if(memcmp(p_network_event->line, "DELETEID", 8) == 0)
         {
             std::string id = df::match(data.c_str(), "id");
             df::ObjectList all_objects = world_manager.getAllObjects();

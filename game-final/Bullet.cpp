@@ -71,15 +71,25 @@ void Bullet::out() {
 void Bullet::hit(const df::EventCollision *p_collision_event) {
     if(this->getType() == "Bullet")
     {
-        //delete bullet
-        std::ostringstream os, ss;
+        std::ostringstream os, ss, bs , ds;
         df::NetworkManager &network_manager = df::NetworkManager::getInstance();
-        os << "DELETEB,id:" << (this->getId()) << ",";
+
+        //delete bullet and saucer over network
+        //os << "DELETEB,id:" << (this->getId()) << ",";
+
+        os << "DELETEID,id:" << (p_collision_event->getObject1()->getId()) << ",";
         std::string tempMessage = os.str();
-        ss << "01" << tempMessage.length() << tempMessage;
+
+        bs << "DELETEID,id:" << (p_collision_event->getObject2()->getId()) << ",";
+        std::string otherMes = bs.str();
+
+        ss << "02" << tempMessage.length() << tempMessage << otherMes.length() << otherMes;
         std::string message = ss.str();
         network_manager.send2((void *)message.c_str(), message.length());
 
+
+
+        //delete locally
         df::WorldManager &world_manager = df::WorldManager::getInstance();
         world_manager.markForDelete(p_collision_event->getObject1());
         world_manager.markForDelete(p_collision_event->getObject2());
