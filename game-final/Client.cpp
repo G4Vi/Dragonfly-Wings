@@ -136,6 +136,7 @@ Client::~Client() {
 
 int Client::exp(Object* toexplode)
 {
+    std::cout << "q" << std::endl;
     for (int i=-8; i<=8; i+=5) {
         for (int j=-5; j<=5; j+=3) {
             df::Position temp_pos = toexplode->getPosition();
@@ -247,6 +248,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         }
         if(memcmp(p_network_event->line, "DELETER", 7) == 0)
         {
+            std::cout << "z" << std::endl;
             sExplode = 1;
             exp(otherPlayer);
             std::cout << "here" << std::endl;
