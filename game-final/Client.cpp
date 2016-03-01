@@ -238,15 +238,16 @@ void Client::network(const df::EventNetwork *p_network_event) {
             thepoints->setValue(thepoints->getValue()+atoi(p.c_str()));
         }
     }
-    else if(memcmp(p_network_event->line, "DELETE", 6))
+    else if(memcmp(p_network_event->line, "DELETE", 6)==0)
     {
         data = (p_network_event->line+7);
+        std::cout << "sum type of del" << std::endl;
         if(memcmp(p_network_event->line, "DELETEH", 7) == 0)
         {
             sExplode = 0;
             world_manager.markForDelete(this);
         }
-        if(memcmp(p_network_event->line, "DELETER", 7) == 0)
+        else if(memcmp(p_network_event->line, "DELETER", 7) == 0)
         {
             std::cout << "z" << std::endl;
             sExplode = 1;
