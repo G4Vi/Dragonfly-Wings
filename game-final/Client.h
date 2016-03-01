@@ -27,6 +27,8 @@ class Client : public df::Object {
   std::vector<Saucer*> saucers;
   Points* thepoints;
 
+  int exp(Object* toexplode);
+
   int fire_slowdown;
   int fire_countdown;
   int move_slowdown;

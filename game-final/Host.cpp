@@ -99,7 +99,7 @@ Host::~Host() {
     df::WorldManager &world_manager = df::WorldManager::getInstance();
 
     //Send out ship distruction message
-    tempMessage = "DELETEH,";
+    tempMessage = "DELETER,";
     message = "010" + df::toString((int)tempMessage.length()) + tempMessage;
     network_manager.send2((void *)message.c_str(), message.length());
     network_manager.shutDown();

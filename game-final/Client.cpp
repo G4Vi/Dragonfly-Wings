@@ -107,7 +107,7 @@ Client::~Client() {
     // Create GameOver object.
     GameOver *p_go = new GameOver;
 
-    // Make big explosion.
+    /*// Make big explosion.
     for (int i=-8; i<=8; i+=5) {
         for (int j=-5; j<=5; j+=3) {
             temp2.setX(temp2.getX() + i);
@@ -115,7 +115,7 @@ Client::~Client() {
             Explosion *p_explosion = new Explosion;
             p_explosion -> setPosition(temp2);
         }
-    }
+    }*/
 
     /*
     // Make big explosion.
@@ -132,6 +132,19 @@ Client::~Client() {
 
     // Mark Reticle for deletion.
     df::WorldManager::getInstance().markForDelete(p_reticle);
+}
+
+int Client::exp(Object* toexplode)
+{
+    for (int i=-8; i<=8; i+=5) {
+        for (int j=-5; j<=5; j+=3) {
+            df::Position temp_pos = toexplode->getPosition();
+            temp_pos.setX(toexplode->getPosition().getX() + i);
+            temp_pos.setY(toexplode->getPosition().getY() + j);
+            Explosion *p_explosion = new Explosion;
+            p_explosion -> setPosition(temp_pos);
+        }
+    }
 }
 
 // Handle event.
@@ -233,6 +246,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         if(memcmp(p_network_event->line, "DELETER", 7) == 0)
         {
             sExplode = 1;
+            exp(otherPlayer);
             world_manager.markForDelete(this);
         }
 
