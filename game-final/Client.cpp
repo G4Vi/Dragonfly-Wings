@@ -300,6 +300,8 @@ void Client::fire(df::Position target) {
     p->setYVelocity((float) (target.getY() - getPosition().getY()) /
             (float) (target.getX() - getPosition().getX()));
 
+    p->setType("ClientBullet");
+
     bullets2.push_back(p);
 
     // Play "fire" sound.

@@ -18,8 +18,6 @@
 #include "NetworkManager.h"
 #include "Host.h"
 
-//Host* betterOwner;
-
 RemoteShip::RemoteShip(int killowner) {
 
   // Link to "ship" sprite.
@@ -58,14 +56,8 @@ RemoteShip::RemoteShip(int killowner) {
 
   //allow destruct of owner
   this->killowner = killowner;
-  //betterOwner = owner;
 }
 
-/*RemoteShip::setBetterOwner(Object* bo)
-{
-    betterOwner
-}*/
-  
 RemoteShip::~RemoteShip() {
 
     if(this->killowner == 1)
@@ -102,21 +94,6 @@ RemoteShip::~RemoteShip() {
             }
         }
     }
-    /*
-  // Create GameOver object.
-  GameOver *p_go = new GameOver;
-  
-  // Make big explosion.
-  for (int i=-8; i<=8; i+=5) {
-    for (int j=-5; j<=5; j+=3) {
-      df::Position temp_pos = this->getPosition();
-      temp_pos.setX(this->getPosition().getX() + i);
-      temp_pos.setY(this->getPosition().getY() + j);
-      Explosion *p_explosion = new Explosion;
-      p_explosion -> setPosition(temp_pos);
-    }
-  }
-  */
 }
  
 // Handle event.

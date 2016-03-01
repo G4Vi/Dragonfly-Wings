@@ -29,7 +29,7 @@ bool Sync::determineObChange(df::Object* anobject, std::string* messageStatus)
             return true;
         }
     }
-    else if(anobject->getType() == "Bullet")
+    else if((anobject->getType() == "Bullet") || (anobject->getType() == "ClientBullet") )
     {
         if(anobject->isModified(df::ID))
         {
