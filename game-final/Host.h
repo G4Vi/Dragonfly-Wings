@@ -26,6 +26,7 @@ class Host : public df::Object {
   Sync* syncHalp;
   RemoteShip* otherPlayer;  
   Points* thepoints;
+  std::vector<Saucer*> saucers;
  
   int fire_slowdown;
   int fire_countdown;
@@ -41,7 +42,7 @@ class Host : public df::Object {
   void nuke();
   
  public:
-  std::vector<Saucer*> saucers;
+  
   int killchild;
   Host(Settings* info);
   ~Host();

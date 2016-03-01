@@ -15,9 +15,7 @@ class Saucer : public df::Object {
  
  public:
   Saucer();
-  ~Saucer();
-  Object* owner;
-  int host;
+  ~Saucer();  
  int eventHandler(const df::Event *p_e);
 };
 #endif //SAUCER_H

@@ -19,7 +19,6 @@
 #include "Points.h"
 #include "Saucer.h"
 
-#include "Host.h"
 
 Saucer::Saucer() {
   df::LogManager &log_manager = df::LogManager::getInstance();
@@ -108,6 +107,7 @@ void Saucer::out() {
       tempSaucer->owner = betterOwner;
       betterOwner->saucers.push_back(tempSaucer);
   }*/
+  new Saucer;
 
 }
  
@@ -142,7 +142,7 @@ void Saucer::hit(const df::EventCollision *p_collision_event) {
     }*/
     new Saucer;
   }
-
+/*
   // If ClientBullet, create explosion play sound
   if ((p_collision_event -> getObject1() -> getType() == "ClientBullet") ||
       (p_collision_event -> getObject2() -> getType() == "ClientBullet")) {
@@ -156,7 +156,7 @@ void Saucer::hit(const df::EventCollision *p_collision_event) {
     p_sound->play();
 
     //don't create a saucer because that is host's job
-  }
+  }*/
 
 
   // If Hero, mark both objects for destruction.

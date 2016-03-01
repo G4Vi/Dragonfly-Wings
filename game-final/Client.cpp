@@ -180,7 +180,7 @@ void Client::network(const df::EventNetwork *p_network_event) {
         else if(memcmp(p_network_event->line, "NEWS", 4) == 0)
         {
             Saucer* tempSaucer = new Saucer;
-            tempSaucer->host = 0;
+
             //saucers.push_back(new Saucer);
             std::string id = df::match(data.c_str(), "id");
             //saucers.back()->setId(atoi(id.c_str()));
