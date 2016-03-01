@@ -105,6 +105,7 @@ void Saucer::out() {
       Saucer* tempSaucer = new Saucer;
       tempSaucer->host = 1;
       Host* betterOwner = dynamic_cast <Host *> (owner);
+      tempSaucer->owner = betterOwner;
       betterOwner->saucers.push_back(tempSaucer);
   }
 }
@@ -135,6 +136,7 @@ void Saucer::hit(const df::EventCollision *p_collision_event) {
         Saucer* tempSaucer = new Saucer;
         tempSaucer->host = 1;
         Host* betterOwner = dynamic_cast <Host *> (owner);
+        tempSaucer->owner = betterOwner;
         betterOwner->saucers.push_back(tempSaucer);
     }
   }
