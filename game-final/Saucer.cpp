@@ -100,14 +100,15 @@ void Saucer::out() {
   moveToStart();
  
    //Spawn new Saucer to make game get harder.
-  if(host == 1)
+ /* if(host == 1)
   {
       Saucer* tempSaucer = new Saucer;
       tempSaucer->host = 1;
       Host* betterOwner = dynamic_cast <Host *> (owner);
       tempSaucer->owner = betterOwner;
       betterOwner->saucers.push_back(tempSaucer);
-  }
+  }*/
+
 }
  
 // Called with Saucer collides.
@@ -131,14 +132,15 @@ void Saucer::hit(const df::EventCollision *p_collision_event) {
     p_sound->play();
 
     // Saucers appear stay around perpetually.
-    if(host == 1)
+    /*if(host == 1)
     {
         Saucer* tempSaucer = new Saucer;
         tempSaucer->host = 1;
         Host* betterOwner = dynamic_cast <Host *> (owner);
         tempSaucer->owner = betterOwner;
         betterOwner->saucers.push_back(tempSaucer);
-    }
+    }*/
+    new Saucer;
   }
 
   // If ClientBullet, create explosion play sound

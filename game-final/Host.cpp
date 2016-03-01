@@ -85,6 +85,7 @@ Host::Host(Settings* info) {
     {
         Saucer* tempSaucer = new Saucer;
         tempSaucer->host = 1;
+        //tempSaucer->owner = this;
         saucers.push_back(tempSaucer);
     }
 
